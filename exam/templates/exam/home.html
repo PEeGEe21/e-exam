@@ -1,0 +1,100 @@
+{% extends "exam/base.html" %}
+{% block title %}  {{ course }} Examination{% endblock %} 
+
+{% load static %}
+    {% block content %}
+
+        <div class="d-flex justify-content-between">
+            <div class="">
+                <!-- <h1>Questions</h1> -->
+                
+            </div>
+            <div class="info">
+                    <div class="text-left mb-3">
+                        <img class="img-fluid avatar-xl rounded" src="{{student.profile.image.url}}" />
+                    </div>
+                <ul>
+                    <li>Name: <strong> {{ student.name }}</strong></li>
+                    <li>Matriculation No.: <strong>{{ student.id }}</strong></li>
+                    <li>Course: <strong>{{ course }}</strong></li>
+                    <li>Semester: <strong>{{ semester }}</strong> </li>
+                    <li>Level: <strong>{{ level }}</strong> </li>
+                </ul>
+            </div>
+        </div>
+        
+
+
+        <form action="/result/" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="sid" value="{{ student }}">
+            <input type="hidden" name="subject" value="{{ course }}">
+            
+                    <!-- 
+                    <div class="test_title">
+                        <p class="test_time">
+                            <i class="icon iconfont">&#xe6fb;</i><b class="alt-1">01:30:00</b>
+                        </p>
+                    </div> 
+                -->
+
+            <div class="test_content text-center">
+                <div class="test_content_title mb-4">
+                    <h2>Multiple Choice</h2>
+                    <!-- <p>
+                        <span>Total</span><i class="content_lit"> 10 </i><span>question</span>
+                    </p> -->
+                </div>
+            </div>
+
+            <div class="card card-body pb-4">
+                <div class="card-title">
+                    <h3>Instruction: </h3>
+                </div>
+                <div class="card-text">
+                        {{ paper.instruction|safe }}
+                </div>
+            </div>
+            {% for question in questions %}
+                <div class="card test-questions card-animate">
+                    <div class="card-header">
+                        <h4>{{ question.question|safe }}</h4>
+                        
+                    </div>
+                    <div class="card-body test_content_nr_main">
+                        <ul>
+                            <li class="option">
+                                A. <input type="radio" name="{{ question.id }}" value="{{ question.option1 }}" class="mr-2"/>
+                                <label>{{ question.option1 }}</label>
+                            </li>
+                            <li class="option">
+                                B. <input type="radio" name="{{ question.id }}" value="{{ question.option2 }}" class="mr-2"/>
+                                <label>{{ question.option2 }}</label>
+                            </li>
+                            <li class="option">
+                                C. <input type="radio" name="{{ question.id }}" value="{{ question.option3 }}" class="mr-2"/>
+                                <label>{{ question.option3 }}</label>
+                            </li>
+                            <li class="option">
+                                D. <input type="radio" name="{{ question.id }}" value="{{ question.option4 }}" class="mr-2"/>
+                                <label>{{ question.option4 }}</label>
+                            </li>
+        
+                            <li class="">
+                                Correct answer: {{ question.answer }}
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </div>
+            {% endfor %}
+            
+            <div class="text-right p-3">
+                <button class="btn btn-primary btn-lg waves-effect" type="submit">SUBMIT</button>
+                <!-- <span class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true"></span> -->
+            </div>
+
+        </form>
+
+     
+{% endblock content %}

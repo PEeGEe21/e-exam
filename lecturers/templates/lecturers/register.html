@@ -1,0 +1,105 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
+        <title>CCU - Lecturer:: SignUp</title>
+        
+        <link rel="shortcut icon" href="{% static 'exam/images/logo.jpg' %}">
+
+
+        <!-- <link href="{% static 'exam/plugins/font-awesome/css/font-awesome.css' %}" rel="stylesheet" type="text/css" /> -->
+        <link href="{% static 'exam/plugins/fontawesome5/css/all.min.css' %}" rel="stylesheet" type="text/css" />
+
+        <link href="{% static 'exam/icons.min.css' %}" rel="stylesheet" type="text/css" />
+
+        <link href="{% static 'exam/plugins/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'exam/style.css' %}" rel="stylesheet" type="text/css" />
+
+        <link href="{% static 'exam/theme.min.css' %}" rel="stylesheet" type="text/css" />
+
+        <style>
+            .page-content {
+                padding: calc(25px + 24px) calc(24px / 2) 70px calc(24px / 2);
+                }
+
+                body{
+                  background: url("{% static 'exam/images/hero_1.jpg' %}");
+                  background-repeat: no-repeat;
+                  background-size: cover;
+                  background-position: center;
+                }
+
+                body::before{
+                  content:"";
+                  position: absolute;
+                  height: 100%;
+                  width: 100%;
+                  background: #343a40;
+                  opacity: .9;
+                }
+
+                .reg_form .col-lg-5 {
+                    -webkit-box-flex: 0;
+                    -ms-flex: 0 0 41.66667%;
+                    flex: 0 0 58.66667%;
+                    max-width: 58.66667%;
+                }
+        </style>
+    </head>
+    <body>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% block content %}
+
+        <div class="overlay"></div>
+            <div class="pt-5">
+                <section class="appointment">
+                    <div class="container">
+                        <div class="row">
+                        <div class="col-md-12 col-lg-7 mx-auto">
+                            <div class="card border-0 shadow-sm">
+                                    <h2 class="lined lined-center pt-3 text-center my-4"> Register as a Lecturer </h2>
+                                    <!-- <p class="text-muted mb-4 text-center">Nulla tristique ipsum in quam. Integer ac elit. Duis turpis faucibus non</p> -->
+                                    
+                            <div class="card-body border-top border-md border-primary p-4">
+                                    <form method="POST" >
+                                            {% csrf_token %}
+                                            <fieldset class="form-group">
+                                                {{ form|crispy }}
+                                            </fieldset>
+                                            <div class="form-group">
+                                                <button class="btn btn-primary btn-block" type="submit">Register</button>
+                                            </div>
+                                        </form>
+                                        <div class="border-top pt-3">
+                                            <p class="text-muted">
+                                                Already Have An Account?<a class="ml-2" href="{% url 'lecturer-login' %}">Sign In</a>
+                                            </p>
+                                        </div>
+                            </div>
+                            </div>
+                        </div>
+                        
+                        
+                    
+                        
+                        </div>
+                    </div>
+                </section>
+            </div>
+        {% endblock content %}
+
+    </body>
+</html>
+
+

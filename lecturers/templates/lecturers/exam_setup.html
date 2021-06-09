@@ -1,0 +1,122 @@
+{% extends "lecturers/base.html" %}
+{% block title %} Paper Setup | Dashboard {% endblock %} 
+
+{% load crispy_forms_tags %}
+<!-- {% include 'lecturers/base.html' %} -->
+    {% block content %}
+            <!-- <div class="mt-5">
+                <section class="appointment">
+                    <div class="container">
+                        <h2 class="lined lined-center text-center"> add a question:: {{ teacher.name }} </h2>
+                        <p class="text-muted mb-4 text-center">Nulla tristique ipsum in quam. Integer ac elit. Duis turpis faucibus non</p>
+                        <div class="row">
+                        <div class="col-md-12 col-lg-7 mx-auto">
+                            <div class="card border-0 shadow-sm">
+                            <div class="card-body border-top border-md border-primary p-5">
+                                    <form method="POST" >
+                                            {% csrf_token %}
+                                            <fieldset class="form-group">
+                                                {{ form|crispy }}
+                                            </fieldset>
+                                            <div class="form-group">
+                                                <button class="btn btn-outline-info" type="submit">Register</button>
+                                            </div>
+                                        </form>
+                                        <div class="border-top pt-3">
+                                            <small class="text-muted">
+                                                Already Have An Account? <a class="ml-2" href="{% url 'lecturer-login' %}">Sign In</a>
+                                            </small>
+                                        </div>
+                            </div>
+                            </div>
+                        </div>
+                        
+                        
+                    
+                        
+                        </div>
+                    </div>
+                </section>
+            </div> -->
+            <div class="main-content">
+
+                <div class="page-content">
+                    <div class="container-fluid">
+    
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box d-flex align-items-center justify-content-between">
+                                    <h4 class="mb-0 font-size-18">Exam Setup</h4>
+    
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Lecturer</a></li>
+                                            <li class="breadcrumb-item active">Exam Setup</li>
+                                        </ol>
+                                    </div>
+    
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+                        <div class="row">
+    
+                            <div class="col-xl-7">
+                                <div class="card">
+                                   <div class="card-body">
+                                       <h4 class="card-title">Setup Your Exam</h4>
+                                       <!-- <p class="card-subtitle mb-4">Textual form controls—like <code>input</code>s,<code> selects</code>, and<code> textare</code>s—are styled with the .form-control class. Included are styles for general appearance, focus state, sizing, and more. </p> -->
+                                       <p class="card-subtitle mb-4">
+                                            Carefully cross-check all questions being added before saving as questions <code>CANNOT</code> be edited.
+                                        </p>
+
+                                        <form method="POST" action="">
+                                            {% csrf_token %}
+                                            {{ form|crispy }}
+
+                                            
+                                            <div class="form-group d-flex justify-content-between">
+                                                <button class="btn btn-primary waves-effect" type="submit">Create</button>
+                                                <a href="{% url 'exam-create' %}" class="btn btn-outline-primary waves-effect" type="submit">Add Questions</a>
+                                            </div>
+                                        </form>
+                                    
+                                   </div>
+                                   <!-- end card-body-->
+                               </div>
+                               <!-- end card -->
+                           </div> <!-- end col -->
+                        </div>
+                        
+                        <!-- end row-->
+    
+                        
+                        <!-- end row-->
+    
+                    </div> <!-- container-fluid -->
+                </div>
+                <!-- End Page-content ©-->
+    
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                &copy; <script>document.write(new Date().getFullYear());</script>,&nbsp;CCU.
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="text-sm-right d-none d-sm-block">
+                                    Designed & Developed by Pee-Gee
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+    
+            </div>
+            {% endblock content %}
+
+           
+
+            
+        

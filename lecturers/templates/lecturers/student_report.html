@@ -1,0 +1,129 @@
+{% extends "lecturers/base.html" %}
+{% block title %} Students Report {% endblock %} 
+
+{% load crispy_forms_tags %}
+    {% block content %}
+                
+            </div>
+            <div class="main-content">
+
+                <div class="page-content">
+                    <div class="container-fluid">
+    
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box d-flex align-items-center justify-content-between">
+                                    <h4 class="mb-0 font-size-18">Students Report</h4>
+    
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Lecturer</a></li>
+                                            <li class="breadcrumb-item active">Students Report</li>
+                                        </ol>
+                                    </div>
+    
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+                        <section class="appointment">
+                            <div class="row">
+                                <div class="col-md-12 col-lg-7 mx-auto">
+                                    <div class="card card-animate border-0 shadow-sm">
+                                        <div class="card-body border border-md border-primary p-5">
+                                            <form method="POST" >
+                                                {% csrf_token %}
+                                                <fieldset class="form-group">
+                                                    {{ form|crispy }}
+                                                </fieldset>
+                                                <div class="form-group">
+                                                    <button class="btn btn-outline-info" type="submit">Get Result</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <div class="row">
+                            <div class="col-12">
+                                 <div class="card card-animate">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            
+                                        <h4 class="card-title">All Students</h4>
+                                        <h5 class="mb-4">{{ course }}</h5>
+                                        <h5 class="mb-4">{{ lecturer.tid }}</h5>
+                                        </div>
+
+                                        <p class="card-subtitle mb-4">
+                                            DataTables has the option of being able to save the state of a table (its paging position, ordering state etc) so
+                                            that is can be restored when the user reloads a page, or comes back to the page after visiting a sub-page. This
+                                            state saving ability is enabled by the stateSave option.
+                                        </p>
+
+                                        <table id="state-saving-datatable" class="table dt-responsive nowrap">
+                                            <thead>
+                                                <tr>
+                                                    <th> Student </th>
+                                                    <th> Name </th>
+                                                    <th> Score </th>
+                                                    <th> Grade </th>
+                                                </tr>
+                                            </thead>
+                                        
+                                            <tbody>
+
+                                                    {% for grade in queryset %}
+
+                                                    <tr class="">
+                                                        <!-- grade, id, sid, sid_id, subject -->
+                                                         <td>{{ grade.sid }}</td>
+                                                         <td>{{ grade.sid.name }}</td>
+                                                         <td><strong>{{ grade.grade }}</strong></td>
+                                                         <td><strong>{{ grade.score }}</strong></td>
+                                                         
+                                                     </tr>
+                                                   {% endfor %}
+                                              
+                                            </tbody>
+                                            
+                                            
+                                        </table>
+    
+                                    </div> <!-- end card body-->
+                                </div> <!-- end card -->
+                            </div><!-- end col-->
+                        </div>
+
+                        
+                        
+    
+                    </div> <!-- container-fluid -->
+                </div>
+                <!-- End Page-content -->
+    
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                &copy; <script>document.write(new Date().getFullYear());</script>,&nbsp;CCU.
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="text-sm-right d-none d-sm-block">
+                                    Designed & Developed by Pee-Gee
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+    
+            </div>
+            {% endblock content %}
+
+           
+
+            
+        

@@ -1,0 +1,88 @@
+{% extends "exam/base.html" %}
+    {% block content %}
+    <div class="d-flex justify-content-between">
+        <div class="">
+            <h1>Questions</h1>
+            
+        </div>
+        <div class="info">
+            <ul>
+                <li><strong>Course:</strong> {{ course }}jhjkjklnlknkmlmm</li>
+                <li><strong>Name:</strong> {{ student.name }}huhhoijopok</li>
+                <li><strong>Matriculation No.:</strong> {{ student.id }}ljjiljlmlm;mlm</li>
+            </ul>
+        </div>
+    </div>
+        <div>
+            <h3>Instruction: {{exam.paper.instruction}}</h3>
+        </div>
+
+        {% for question in questions %}
+
+        <!-- <div class="col-xl-3 col-md-6"> -->
+            <div class="card test-questions card-animate">
+              <div class="card-header">
+                  <h4>{{ question.question }}</h4>
+              </div>
+                <div class="card-body">
+                    <ul>
+                        <li>
+                            A. <input type="radio" name="{{ question.id }}" value="{{ question.option1 }}" class="mr-2"/>
+                            <label>{{ question.option1 }}</label>
+                        </li>
+                        <li>
+                            B. <input type="radio" name="{{ question.id }}" value="{{ question.option2 }}" class="mr-2"/>
+                            <label>{{ question.option2 }}</label>
+                        </li>
+                        <li>
+                            C. <input type="radio" name="{{ question.id }}" value="{{ question.option3 }}" class="mr-2"/>
+                            <label>{{ question.option3 }}</label>
+                        </li>
+                        <li>
+                            D. <input type="radio" name="{{ question.id }}" value="{{ question.option4 }}" class="mr-2"/>
+                            <label>{{ question.option4 }}</label>
+                        </li>
+    
+                          <li>
+                            Correct answer: {{ question.answer }}
+                          </li>
+                          
+                        </ul>
+                  </div>
+            </div>
+        <!-- </div> -->
+        {% endfor %}
+
+        <!-- {% for question in questions %}
+
+
+        <article class="media content-section">
+              <div class="media-body">
+
+                  <h4>{{ question.question }}</h4>
+
+                <div class="article-content">
+                  <ul>
+                    <li>
+                        <input type="radio" id="option1" name="{{ question.id }}" value="{{ question.option1 }}" class="mr-2"/>{{ question.option1 }}
+                    </li>
+                    <li>
+                        <input type="radio" id="option1" name="{{ question.id }}" value="{{ question.option2 }}" class="mr-2"/>{{ question.option2 }}
+                    </li>
+                    <li>
+                        <input type="radio" id="option1" name="{{ question.id }}" value="{{ question.option3 }}" class="mr-2"/>{{ question.option3 }}
+                    </li>
+                    <li>
+                        <input type="radio" id="option1" name="{{ question.id }}" value="{{ question.option4 }}" class="mr-2"/>{{ question.option4 }}
+                    </li>
+
+                      <li>
+                        Correct answer: {{ question.correct_answer }}
+                      </li>
+                    </ul>
+                  </div>
+              </div>
+            </article>
+                {% endfor %} -->
+
+{% endblock content %}

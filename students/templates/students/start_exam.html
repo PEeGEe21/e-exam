@@ -1,0 +1,276 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+<!doctype html>
+<html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
+        <title>CCU - Students | StartExam</title>
+        <link rel="shortcut icon" href="{% static 'exam/images/logo.jpg' %}">
+
+        <!-- <link href="{% static 'exam/plugins/font-awesome/css/font-awesome.css' %}" rel="stylesheet" type="text/css" /> -->
+        <link href="{% static 'exam/plugins/fontawesome5/css/all.min.css' %}" rel="stylesheet" type="text/css" />
+
+        <link href="{% static 'exam/icons.min.css' %}" rel="stylesheet" type="text/css" />
+
+        <link href="{% static 'exam/plugins/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'exam/style.css' %}" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="{% static 'exam/plugins/sweetalert2/sweetalert2.min.css' %}">
+
+
+        <style>
+            .page-content {
+                padding: calc(25px + 24px) calc(24px / 2) 70px calc(24px / 2);
+                }
+
+            .arrow-link{ 
+                letter-spacing: .1em;
+            }
+  
+            .arrow-link:hover i {
+              left: 10px;
+              }
+            
+            .arrow-link i {
+              -webkit-transition: .3s all ease;
+              -o-transition: .3s all ease;
+              transition: .3s all ease;
+              position: relative;
+              left: 0;
+              font-size: 12px;
+	          }
+
+              .content-section {
+                background: #ffffff;
+                padding: 10px 20px;
+                border: 1px solid #dddddd;
+                border-radius: 3px;
+                margin-bottom: 20px;
+              }
+
+              .article-title {
+                color: #444444;
+              }
+
+              a.article-title:hover {
+                color: #428bca;
+                text-decoration: none;
+              }
+
+              .article-content {
+                white-space: pre-line;
+              }
+
+              .article-img {
+                height: 65px;
+                width: 65px;
+                margin-right: 16px;
+              }
+
+              .article-metadata {
+                padding-bottom: 1px;
+                margin-bottom: 4px;
+                border-bottom: 1px solid #e3e3e3
+              }
+
+              .article-metadata a:hover {
+                color: #333;
+                text-decoration: none;
+              }
+
+              .article-svg {
+                width: 25px;
+                height: 25px;
+                /* vertical-align: middle; */
+              }
+
+              .account-img {
+                height: 125px;
+                width: 125px;
+                margin-right: 20px;
+                margin-bottom: 16px;
+              }
+
+              .account-heading {
+                font-size: 2.5rem;
+              }
+
+              body{
+                  background: url("{% static 'exam/images/media/sm-3.jpg' %}");
+                  background-repeat: no-repeat;
+                  background-size: cover;
+                  background-position: center;
+
+                }
+
+                body::before{
+                  content:"";
+                  position: absolute;
+                  height: 100%;
+                  width: 100%;
+                  /* background: #343a40; */
+                  background: #000000;
+                  opacity: .8;
+                }
+        </style>
+    </head>
+    <body class="bg-primary">
+
+
+      <div class="pt-4">
+        <div class="container">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="text-left alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <div class="row">
+              <div class="col-lg-8">
+                  <div class="card h-100 border-0 shadow-sm">
+                               
+                      <div class="card-body border-top border-md border-success p-5">
+                        
+                        <form class="" action="/examination/" method="POST">
+                          {% csrf_token %}
+
+                          <fieldset class="form-group">
+                              {{ form|crispy }}
+                          </fieldset>
+                          <div class="form-group text-center align-items-center">
+                              <button class="btn btn-info" type="submit">START EXAM</button>
+                          </div>
+                          <!-- <div class="row">
+                            <div class="form-group col-lg-12 mb-4">
+                              <input class="form-control" type="text" name="reg_no" placeholder="Matriculation Number" required>
+                            </div>
+                            <div class="form-group col-lg-12 mb-4">
+                              <input class="form-control" type="password" name="password" placeholder="Password" required>
+                            </div>
+  
+                            <div class="form-group col-lg-12">
+                              <a class="btn btn-success btn-block" href="{% url 'exam-home' %}">START EXAM</a>
+                            </div>
+                          </div> -->
+                        </form>
+                        
+                      </div>
+                    </div>
+              </div>  
+
+              <div class="col-lg-4">
+                  <div class="card h-100">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img class="img-fluid rounded-circle account-img" src="{{student.profile.image.url}}" />
+                        </div>
+
+                        <ul style="list-style: none; margin-left:0px; padding-left:0px;">
+                          <li class="my-2">Name: <strong><span class="text-uppercase"> {{ student.name }}</span></strong></li>
+                          <li class="mb-2">Matric No.: <strong><span class="text-uppercase"> {{ student.id }}</span></strong></li>
+                          <li class="mb-2">Department:<strong> {{ student.dept }}</strong></li>
+                          <li class="mb-2">Major:<strong> {{ student.major }}</strong></li>
+                          <li class="mb-2">Year:<strong> {{ student.level }}</strong></li>
+                          <li class="mb-2">Sex:<strong> {{ student.sex }}</strong></li>
+                          <!-- <li class="">Email:<strong> {{ student.email }}</strong></li> -->
+                        </ul>
+                        <div class="text-right mt-5">
+                          <!-- <h2 class="">Name: {{ student.name }}</h2>
+                          <h5 class="">Department: {{ student.dept }}</h2>
+                          <h5 class="">Major: {{ student.major }}</h5>
+                          <h5 class="">Sex: {{ student.sex }}</h5>
+                          <h5 class="">Email: {{ student.email }}</h5> -->
+                          {% if user.is_authenticated %}
+                              <a class="btn btn-outline-info" href="{% url 'logout' %}">
+                                  <span>Log Out</span>
+                              </a>
+                          {% endif %}
+                        </div>
+                        
+                    </div>
+
+                    
+                  </div>
+              </div> 
+            </div>
+        </div>
+      </div>
+
+        <!-- <div class="mt-lg-5">
+        <section class="appointment">
+            {% if messages %}
+            {% for message in messages %}
+                <div class="text-left alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+            <div class="row">
+                    <div class="col-md-12 col-lg-7 mx-auto p-4 h-100">
+                        <div class="card border-0 shadow-sm">
+                               
+                          <div class="card-body border-top border-md border-success p-5">
+                            
+                            <form class="make-appointment-form" action="" method="POST">
+                              {% csrf_token %}
+
+                              <fieldset class="form-group">
+                                  {{ form|crispy }}
+                              </fieldset>
+                              <div class="form-group">
+                                  <button class="btn btn-outline-info btn-block" type="submit">START EXAM</button>
+                              </div>
+                              <!-- <div class="row">
+                                <div class="form-group col-lg-12 mb-4">
+                                  <input class="form-control" type="text" name="reg_no" placeholder="Matriculation Number" required>
+                                </div>
+                                <div class="form-group col-lg-12 mb-4">
+                                  <input class="form-control" type="password" name="password" placeholder="Password" required>
+                                </div>
+      
+                                <div class="form-group col-lg-12">
+                                  <a class="btn btn-success btn-block" href="{% url 'exam-home' %}">START EXAM</a>
+                                </div>
+                              </div> 
+                            </form>
+                            
+                          </div>
+                        </div>
+                </div>
+                <div class="col-lg-5">
+                        <div class="content-section">
+                            <div class="d-flex text-center align-items-center ">
+                                <img class="rounded-circle account-img text-center" src="" />
+                            </div>
+                                <div class="media">
+                                    <div class="media-body">
+                                        <h2 class="account-heading">name: {{ student.name }}</h2>
+                                        <h5 class="account-heading">department: {{ student.dept }}</h2>
+                                        <h5 class="account-heading">major: {{ student.major }}</h5>
+                                        <h5 class="account-heading">sex: {{ student.sex }}</h5>
+                                        <h5 class="account-heading">email: {{ student.email }}</h5>
+                                    </div>
+
+                                    {% if user.is_authenticated %}
+                                    <a class="dropdown-item d-flex align-items-center justify-content-between"
+                                        href="{% url 'logout' %}">
+                                        <span>Log Out</span>
+                                    </a>
+                                {% endif %}
+                                </div>
+                            </div>
+                </div>
+            </div>
+        </section>
+   
+      </div> -->
+      <script src="{% static 'exam/plugins/sweetalert2/sweetalert2.min.js' %}"></script>
+      {% load sweetify%}      
+      {% sweetify %}
+    </body>
+    </html>

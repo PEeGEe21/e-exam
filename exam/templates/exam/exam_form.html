@@ -1,0 +1,372 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<!doctype html>
+<html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        {% if title %}
+            <title>CCU - {{ title }}</title>
+        {% else %}
+            <title>CCU - Examination</title>
+        {% endif %}
+
+        <!-- <link href="{% static 'exam/plugins/font-awesome/css/font-awesome.css' %}" rel="stylesheet" type="text/css" /> -->
+        <link href="{% static 'exam/plugins/fontawesome5/css/all.min.css' %}" rel="stylesheet" type="text/css" />
+
+        <link href="{% static 'exam/icons.min.css' %}" rel="stylesheet" type="text/css" />
+
+        <link href="{% static 'exam/plugins/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'exam/style.css' %}" rel="stylesheet" type="text/css" />
+
+        <link href="{% static 'exam/theme.min.css' %}" rel="stylesheet" type="text/css" />
+
+        <style>
+            .page-content {
+                padding: calc(25px + 24px) calc(24px / 2) 70px calc(24px / 2);
+                }
+        </style>
+    </head>
+    <body>
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="/">
+                  <img src="{% static 'exam/images/logo.jpg' %}" width="40px"/> COAL CITY UNIVERSITY
+              </a>
+
+
+              <div class="d-flex align-items-left">
+
+              <button class="navbar-toggler waves-effect" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+
+              <button type="button" class="btn btn-sm d-lg-none px-3 font-size-16 header-item waves-effect"
+                  id="vertical-menu-btn">
+                  <i class=" fas fa-1x fa-ellipsis-v"></i>
+                </button>
+
+              </div>
+
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- <ul class="navbar-nav mr-auto">
+                  
+                </ul> -->
+                <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown d-none d-sm-inline-block">
+                    <a class="nav-link waves-effect" title="Search" id="page-header-user-dropdown2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-search"></i></a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <form class="p-3">
+                            <div class="form-group m-0">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search ..."
+                                        aria-label="Recipient's username">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'exam-home' %}">home</a>
+                </li>
+
+                <li class="nav-item dropdown d-inline-block">
+                    <a class="nav-link waves-effect" title="Search" id="page-header-user-dropdown3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-bell"></i>
+                        <span class="badge badge-danger badge-pill">3</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-sm dropdown-menu-right p-0"
+                            aria-labelledby="page-header-notifications-dropdown">
+                            <div class="p-3">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <h6 class="m-0"> Notifications </h6>
+                                    </div>
+                                    <div class="col-auto">
+                                        <a href="#!" class="small font-weight-bold"> View All</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-simplebar style="max-height: 230px;">
+                                <a href="#" class="text-reset notification-item">
+                                    <div class="media">
+                                        <img src="assets/images/users/avatar-5.jpg"
+                                            class="mr-3 rounded-circle avatar-xs" alt="user-pic">
+                                        <div class="media-body">
+                                            <h6 class="mt-0 mb-1">Samuel Coverdale</h6>
+                                            <p class="font-size-12 mb-1">You have new follower on Instagram</p>
+                                            <p class="font-size-11 font-weight-bold mb-0 text-muted"><i
+                                                    class="mdi mdi-clock-outline"></i> 2 min ago</p>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="#" class="text-reset notification-item">
+                                    <div class="media">
+                                        <div class="avatar-xs mr-3">
+                                            <span class="avatar-title bg-primary rounded-circle">
+                                                <i class="mdi mdi-cloud-download-outline"></i>
+                                            </span>
+                                        </div>
+                                        <div class="media-body">
+                                            <h6 class="mt-0 mb-1">Download Available !</h6>
+                                            <p class="font-size-11 mb-1">Latest version of admin is now available.
+                                                Please download here.</p>
+                                            <p class="font-size-11 font-weight-bold mb-0 text-muted"><i
+                                                    class="mdi mdi-clock-outline"></i> 4 hours ago</p>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="#" class="text-reset notification-item">
+                                    <div class="media">
+                                        <img src="assets/images/users/avatar-8.jpg"
+                                            class="mr-3 rounded-circle avatar-xs" alt="user-pic">
+                                        <div class="media-body">
+                                            <h6 class="mt-0 mb-1">Victoria Mendis</h6>
+                                            <p class="font-size-12 mb-1">Just upgraded to premium account.</p>
+                                            <p class="font-size-11 font-weight-bold mb-0 text-muted"><i
+                                                    class="mdi mdi-clock-outline"></i> 1 day ago</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="p-2">
+                                <a class="btn btn-sm btn-link btn-block text-center font-size-14" href="javascript:void(0)">
+                                    Load More.. <i class="mdi mdi-arrow-right ml-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                  
+                        
+                    <li class="nav-item dropdown">
+                        <a class="nav-link waves-effect" href="javascript:void(0)" title="Create Post" id="page-header-user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{teacher.name}}</a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item d-flex align-items-center justify-content-between"
+                                    href="javascript:void(0)">
+                                    <span>Inbox</span>
+                                    <span>
+                                        <span class="badge badge-pill badge-soft-primary">3</span>
+                                    </span>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center justify-content-between"
+                                    href="javascript:void(0)">
+                                    <span>Profile</span>
+                                    <span>
+                                        <span class="badge badge-pill badge-soft-danger">1</span>
+                                    </span>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center justify-content-between"
+                                    href="javascript:void(0)">
+                                    Settings
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center justify-content-between"
+                                    href="javascript:void(0)">
+                                    <span>Lock Account</span>
+                                </a>
+                                {% if user.is_authenticated %}
+                                    <a class="dropdown-item d-flex align-items-center justify-content-between"
+                                        href="{% url 'logout' %}">
+                                        <span>Log Out</span>
+                                    </a>
+                                {% endif %}
+                                
+                
+                            </div>
+                    </li>
+                        
+
+{#                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="navbarDropdown4" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">About </a>#}
+{#                            <div class="dropdown-menu border-0 shadow-sm" aria-labelledby="navbarDropdown4">#}
+{#                              <a class="dropdown-item text-muted" href="#">Our Mission/Vision</a>#}
+{#                              <a class="dropdown-item text-muted" href="about.html">About Our Hospital</a>#}
+{#                              <a class="dropdown-item text-muted" href="services.html">Our Services</a>#}
+{#                              <a class="dropdown-item text-muted" href="#">Our Sponsors</a>#}
+{#                            </div>#}
+{#                          </li>#}
+
+{#                        <li class="nav-item">#}
+{#                            <a class="nav-link" href="">#}
+{#                                <img width="30px" class="rounded-circle profile-img " src=""  />#}
+{#                            </a>#}
+{#                        </li>#}
+
+<!-- 
+                      <li class="nav-item"><a class="nav-link" href="">Login</a></li>
+                      <li class="nav-item"><a class="nav-link" href="">Register</a></li> -->
+
+                </ul>
+              </div>
+            </div>
+        </nav>
+
+
+        <!-- ========== Left Sidebar Start ========== -->
+        <div id="layout-wrapper">
+            <!-- ========== Left Sidebar Start ========== -->
+            <div class="vertical-menu">
+
+              <div data-simplebar class="h-100">
+
+                  <div class="navbar-brand-box">
+                      <a href="index.html" class="logo">
+                          <img src="assets/images/logo.jpg" />
+                      </a>
+                  </div>
+
+                  <!--- Sidemenu -->
+                  <div id="sidebar-menu">
+                      <!-- Left Menu Start -->
+                      <ul class="metismenu list-unstyled" id="side-menu">
+                          <li class="menu-title">Menu</li>
+
+                          <li>
+                              <a href="{% url 'lecturer_dashboard' %}" class="waves-effect"><i class='bx bx-home-smile'></i><span class="badge badge-pill badge-primary float-right">3</span><span>Dashboard</span></a>
+                          </li>
+
+                          <li>
+                              <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="bx bx-cookie"></i><span>Add Course</span></a>
+                              <ul class="sub-menu" aria-expanded="false">
+                                  <li><a href="ui-buttons.html">Buttons</a></li>
+                                  <li><a href="ui-cards.html">Cards</a></li>
+                                  <li><a href="ui-carousel.html">Carousel</a>
+
+                              </ul>
+                          </li>
+
+                          <li>
+                              <a href="{% url 'exam-create' %}" class="has-arrow waves-effect"><i class="bx bx-table"></i><span>Add Questions</span></a>
+                              <!-- <ul class="sub-menu" aria-expanded="false">
+                                  <li><a href="tables-basic.html">Basic Tables</a></li>
+                                  <li><a href="tables-datatables.html">Data Tables</a></li>
+                              </ul> -->
+                          </li>
+
+                          <li>
+                              <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="bx bx-doughnut-chart"></i><span>Students</span></a>
+                              <ul class="sub-menu" aria-expanded="false">
+                                  <li><a href="#">Students</a></li>
+                                  <li><a href="#"><span class="badge badge-pill badge-soft-danger float-right">6</span><span>Students Report</span></a></li>                                  
+                                <li><a href="#">Add Students</a></li>
+
+                              </ul>
+                          </li>
+
+                          <li>
+                              <a href="javascript: void(0);" class="waves-effect"><i class="bx bxs-eraser"></i><span class="badge badge-pill badge-soft-danger float-right">6</span><span>Forms</span></a>
+                              <ul class="sub-menu" aria-expanded="false">
+                                  <li><a href="forms-elements.html">Elements</a></li>
+            
+                              </ul>
+                          </li>
+
+                        
+
+                          <li><a href="#" class="waves-effect"><i class="bx bx-layout"></i><span>My Report</span></a></li>
+                          <li><a href="#" class="waves-effect"><i class="bx bx-layout"></i><span>Result Report</span></a></li>
+
+                          <li><a href="team.html" class="waves-effect"><i class="bx bx-user-circle"></i><span>Team Members</span></a></li>
+
+                          <li class="menu-title">More</li>
+
+                          
+                          <li><a href="calendar.html" class=" waves-effect"><i class="bx bx-calendar"></i><span>Calendar</span></a></li>
+
+                          <li>
+                              <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="bx bx-map-alt"></i><span>Maps</span></a>
+                              <ul class="sub-menu" aria-expanded="false">
+                                  <li><a href="maps-google.html">Google Maps</a></li>
+                                  <li><a href="maps-vector.html">Vector Maps</a></li>
+                              </ul>
+                          </li>
+
+                          <li>
+                              <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="bx bx-share-alt"></i><span>Multi Level</span></a>
+                              <ul class="sub-menu" aria-expanded="true">
+                                  <li><a href="javascript: void(0);">Level 1.1</a></li>
+                                  <li><a href="javascript: void(0);" class="has-arrow">Level 1.2</a>
+                                      <ul class="sub-menu" aria-expanded="true">
+                                          <li><a href="javascript: void(0);">Level 2.1</a></li>
+                                          <li><a href="javascript: void(0);">Level 2.2</a></li>
+                                      </ul>
+                                  </li>
+                              </ul>
+                          </li>
+
+                      </ul>
+                  </div>
+                  <!-- Sidebar -->
+              </div>
+            </div>
+            <!-- Left Sidebar End -->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <div class="mt-5">
+                <section class="appointment">
+                    <div class="container">
+                        <h2 class="lined lined-center text-center"> add a question :: {{teacher.name}}</h2>
+                        <p class="text-muted mb-4 text-center">Nulla tristique ipsum in quam. Integer ac elit. Duis turpis faucibus non</p>
+                        <div class="row">
+                        <div class="col-md-12 col-lg-7 mx-auto">
+                            <div class="card border-0 shadow-sm">
+                            <div class="card-body border-top border-md border-primary p-5">
+                                    <form method="POST" >
+                                            {% csrf_token %}
+                                            <fieldset class="form-group">
+                                                {{ form|crispy }}
+                                            </fieldset>
+                                            <div class="form-group">
+                                                <button class="btn btn-outline-info" type="submit">Register</button>
+                                            </div>
+                                        </form>
+                                        <div class="border-top pt-3">
+                                            <small class="text-muted">
+                                                Already Have An Account? <a class="ml-2" href="{% url 'lecturer-login' %}">Sign In</a>
+                                            </small>
+                                        </div>
+                            </div>
+                            </div>
+                        </div>
+                        
+                        
+                    
+                        
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+        </div>
+
+
+        <script src="{% static 'exam/js/jquery-3.5.1.min.js' %}"></script>
+        <script src="{% static 'exam/js/popper.min.js' %}"></script>
+        <script src="{% static 'exam/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'exam/js/metismenu.min.js' %}"></script>
+        <script src="{% static 'exam/js/waves.js' %}"></script>
+        <script src="{% static 'exam/js/simplebar.min.js' %}"></script>
+
+        <!-- Morris Js-->
+        <script src="{% static 'exam/plugins/morris-js/morris.min.js' %}"></script>
+        <!-- Raphael Js-->
+        <script src="{% static 'exam/plugins/raphael/raphael.min.js' %}"></script>
+
+        <!-- Morris Custom Js-->
+        <script src="{% static 'exam/js/dashboard-demo.js' %}"></script>
+
+        <!-- App js -->
+        <script src="{% static 'exam/js/theme.js' %}"></script>
+
+    </body>
+</html>
+

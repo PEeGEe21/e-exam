@@ -1,0 +1,154 @@
+
+
+    {% extends "lecturers/base.html" %}
+    {% block title %} Profile | Dashboard {% endblock %} 
+
+{% load crispy_forms_tags %}
+    {% block content %}
+            <!-- <div class="mt-5">
+                <section class="appointment">
+                    <div class="container">
+                        <h2 class="lined lined-center text-center"> add a question:: {{ teacher.name }} </h2>
+                        <p class="text-muted mb-4 text-center">Nulla tristique ipsum in quam. Integer ac elit. Duis turpis faucibus non</p>
+                        <div class="row">
+                        <div class="col-md-12 col-lg-7 mx-auto">
+                            <div class="card border-0 shadow-sm">
+                            <div class="card-body border-top border-md border-primary p-5">
+                                    <form method="POST" >
+                                            {% csrf_token %}
+                                            <fieldset class="form-group">
+                                                {{ form|crispy }}
+                                            </fieldset>
+                                            <div class="form-group">
+                                                <button class="btn btn-outline-info" type="submit">Register</button>
+                                            </div>
+                                        </form>
+                                        <div class="border-top pt-3">
+                                            <small class="text-muted">
+                                                Already Have An Account? <a class="ml-2" href="{% url 'lecturer-login' %}">Sign In</a>
+                                            </small>
+                                        </div>
+                            </div>
+                            </div>
+                        </div>
+                        
+                        
+                    
+                        
+                        </div>
+                    </div>
+                </section>
+            </div> -->
+            <div class="main-content">
+
+                <div class="page-content">
+                    <div class="container-fluid">
+    
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box d-flex align-items-center justify-content-between">
+                                    <h4 class="mb-0 font-size-18">{{ teacher.name }}'s Profile</h4>
+    
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Lecturer</a></li>
+                                            <li class="breadcrumb-item active">Profile</li>
+                                        </ol>
+                                    </div>
+    
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+                        <div class="row">
+    
+                            <div class="col-xl-6">
+
+                                <div class="card shadow-sm  p-0"> 
+                                    <div class="cover-image rounded-top" data-image-src="{{ teacher.profile.coverimage.url }}"></div>
+                                    <div class="card-body pb-5">
+                                        <div class="text-center">
+                                                <img src="{{ teacher.profile.image.url }}" class="img-fluid user-avatar large-avatar rounded-circle mx-auto mt-n7 mb-4" alt="{{teacher.username}}">
+
+                                                <h4 class="h3">
+                                            {{ teacher.username }}
+                                            </h4>
+                                            <h5 class="fw-normal mb-4">
+                                            {{ teacher.email }}
+                                            </h5>
+
+                                            
+                                            <!-- <p class="text-gray mb-4">New York, USA</p> -->
+                                            <a class="btn btn-sm btn-dark me-2" href="#"><span class="fas fa-user-plus me-1"></span> Connect</a>
+                                            <a class="btn btn-sm btn-secondary" href="#">Send Message</a>
+                                            <!-- <div class="dropdown float-right position-relative">
+                                                <a href="#" class="dropdown-toggle btn btn-sm btn-secondary" data-toggle="dropdown"
+                                                    aria-expanded="false">
+                                                    Send Message
+                                                </a>
+                                                <ul class="dropdown-menu dropdown-menu-right">
+                                                    <li><a href="#" class="dropdown-item">Whatsapp</a></li>
+                                                    <li><a href="#" class="dropdown-item">Facebook</a></li>
+                                                    <li><a href="#" class="dropdown-item">Twitter</a></li>
+                                                </ul>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card shadow-sm p-0">
+                                    <div class="card-body pb-5">
+                                        
+                                        
+                                        <form method="POST" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <fieldset class="form-group">
+                                                <legend class="border-bottom mb-4">
+                                                    Profile Info
+                                                </legend>
+                                                {{ u_form|crispy }}
+                                                {{ p_form|crispy }}
+                                            </fieldset>
+                                            <div class="form-group">
+                                                <button class="btn btn-outline-info" type="submit">Update</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                  </div>
+                
+                
+                           </div> <!-- end col -->
+                           
+                        </div>
+                        <!-- end row-->
+    
+                        
+                        <!-- end row-->
+    
+                    </div> <!-- container-fluid -->
+                </div>
+                <!-- End Page-content -->
+    
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                2020 © CCU.
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="text-sm-right d-none d-sm-block">
+                                    Designed & Developed by Pee-Gee
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+    
+            </div>
+            {% endblock content %}
+
+           
+
+            
+        
