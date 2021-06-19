@@ -16,6 +16,7 @@ import cloudinary
 import sweetify
 import cloudinary.uploader
 import cloudinary.api
+import numpy
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'cloudinary',
     'sweetify',
+    # 'numpy',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

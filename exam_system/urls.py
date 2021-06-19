@@ -31,6 +31,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('exam.urls')),
     path('students/', student_views.dashboard, name='students_dashboard'),
+    path('video/', student_views.video, name='videocam'),
     # url(r'^studentLogin/$', student_views.studentLogin, name='studentslogin'),
     url(r'^studentLogin/startexam/$', student_views.studentLogin, name='studentslogin'),
  
@@ -43,6 +44,7 @@ urlpatterns = [
     path('signup/', student_views.register, name='students-register'),
     # path('result/', student_views.result, name='student-result'),
     url(r'^result/$',student_views.calGrade),
+    url(r'^face_detection/detect/$',student_views.detect),
     url('queryStudent',student_views.queryStudent, name='querystudent'),
     # url(r'^studentLogin/exam/', include('exam.urls')),
     path('lecturer/', include('lecturers.urls')),

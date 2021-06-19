@@ -10,15 +10,24 @@
                 
             </div>
             <div class="info">
-                    <div class="text-left mb-3">
-                        <img class="img-fluid avatar-xl rounded" src="{{student.profile.image.url}}" />
-                    </div>
                 <ul>
-                    <li>Name: <strong> {{ student.name }}</strong></li>
-                    <li>Matriculation No.: <strong>{{ student.id }}</strong></li>
-                    <li>Course: <strong>{{ course }}</strong></li>
-                    <li>Semester: <strong>{{ semester }}</strong> </li>
-                    <li>Level: <strong>{{ level }}</strong> </li>
+                    <li>Units: <strong> {{ paper.unit }} </strong></li>
+                    
+                    <li>Level: <strong>{{ paper.level }}</strong></li>
+                    <li>Semester: <strong>{{ semester }}</strong></li>
+                    <li>Date: <strong>{{ paper.exam_time|date }}</strong></li>
+                    <li>Time: <strong>{{ paper.exam_time|time }}</strong></li>
+                </ul>
+            </div>
+            
+        </div>
+        <div>
+            <div class="info">
+                <ul>
+                    <li>Department: <strong> {{ student.dept }}</strong></li>
+                    <li>Course Title: <strong>{{  paper.course_title }}</strong></li>
+                    <li>Course Code: <strong>{{ paper }}</strong></li>
+                    <li>Course Coordinator's Name: <strong>{{ paper.tid }}</strong> </li>
                 </ul>
             </div>
         </div>
@@ -95,6 +104,34 @@
             </div>
 
         </form>
+        <div class="text-center align-items-center">
+            {% if questions.has_other_pages %}
+                <!-- <ul class="pagination"> -->
+                    
+                    {% if questions.has_previous %}
+                        <a class="btn btn-outline-dark mb-4" href="?page={{ questions.previous_page_number }}">&laquo;</a>
+                    {% else %}
+                        <a class="disabled btn btn-outline-dark mb-4"><span>&laquo;</span></a>
+                    {% endif %}
+                    
+                    {% for i in questions.paginator.page_range %}
+                        {% if pages.number == i %}
+                            <a class="active btn btn-dark mb-4"><span>{{ i }} <span class="sr-only">(current)</span></span></a>
+                        {% else %}
+                            <a class="btn btn-outline-dark mb-4" href="?page={{ i }}">{{ i }}</a>
+                        {% endif %}
+                    {% endfor %}
 
+                    {% if questions.has_next %}
+                        <a class="btn btn-outline-dark mb-4" href="?page={{ questions.next_page_number }}">&raquo;</a>
+                        {% else %}
+                        <a class="disabled btn btn-outline-dark mb-4"><span>&raquo;</span></a>
+                    {% endif %}
+                <!-- </ul> -->
+            {% endif %}
+
+
+            
+        </div>
      
 {% endblock content %}

@@ -186,7 +186,7 @@ class ExamSetupForm(forms.ModelForm):
     class Meta:
         model = Paper
         # fields = '__all__'
-        fields = ('tid', 'course', 'instruction', 'level', 'semester', 'major', 'exam_time')
+        fields = ('tid', 'course', 'course_title', 'instruction', 'level', 'semester', 'major', 'exam_time', 'unit')
         template_name = 'lecturers/exam_setup.html'
 
 

@@ -49,6 +49,7 @@ class ExamListView(LoginRequiredMixin, ListView):
     model = Exam
     template_name = 'exam/home.html'
     context_object_name = 'questions'
+    paginate_by = 5
 
     # def get_queryset(self):
     #     paper = get_object_or_404(Paper, course=self.kwargs.get('course'))

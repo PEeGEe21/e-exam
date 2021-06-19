@@ -141,10 +141,12 @@ class Paper(models.Model):
         ('Course'), max_length=20, unique=True, error_messages={'unique': ("The Course has already been created, Add Questions!"),
         }, default=''
     )
+    course_title = models.CharField('Course Title', max_length=100, default='')
     instruction = RichTextField(default='')
     level = models.CharField('Level', max_length=10, choices=LEVEL, default='')
     semester = models.CharField('Semester', max_length=15, choices=SEMESTER, default='')
     major = models.CharField('Applicable for test papers', max_length=20)
+    unit = models.IntegerField('Units', default=1)
     exam_time = models.DateTimeField(blank=True, null=True)
 
     objects = models.Manager()

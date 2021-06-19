@@ -34,7 +34,7 @@ class ExamAdmin(admin.ModelAdmin):
 
 @admin.register(Paper)
 class PaperAdmin(admin.ModelAdmin):
-    list_display = ('id', 'tid', 'course', 'instruction', 'level', 'semester', 'major', 'exam_time')
+    list_display = ('id', 'tid', 'course', 'course_title', 'instruction', 'level', 'semester', 'major', 'exam_time', 'unit')
     # Specify the field to search, a search box will appear for the administrator to search for keywords
     search_fields = ['course', 'major', 'exam_time', 'level', 'semester']
     # Specify a list filter, a quick filter option will appear on the right

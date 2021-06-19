@@ -22,6 +22,8 @@
         <style>
             .navbar{
                 z-index: 99999;
+                background: rgb(24, 23, 23) !important;
+                
             }
 
             body{
@@ -84,7 +86,10 @@
                 .p-4 {
                     padding: 1rem !important;
                 }
-
+                .hero {
+                height: 530px;
+                
+                }
                 
             }
 
@@ -216,7 +221,7 @@
     </head>
     <body data-spy="scroll" data-target=".site-navbar-target" data-offset="150">
 
-        <nav class="navbar navbar-expand-lg navbar-dark site-navbar-target">
+        <nav class="navbar navbar-expand-lg navbar-dark site-navbar-target sticky-top">
             <div class="container-fluid">
               <a class="navbar-brand" href="javascript:0;">
                   <img src="{% static 'exam/images/logo.jpg' %}" width="40px"/> <span class="ml-2 h6"> COAL CITY UNIVERSITY</span>
@@ -282,6 +287,10 @@
                         </div>
                         
                     </div>
+
+                    <!-- <div class="col-sm-12 col-md-5 col-lg-5">
+                        <img src="{% static 'exam/images/img_2.svg' %}" width="100%" class="img-fluid">
+                    </div> -->
                 </div> 
             </div>
         </div>
@@ -324,44 +333,44 @@
     
 
 
-    var scrollWindow = function() {
-		$(window).scroll(function(){
-			var $w = $(this),
-					st = $w.scrollTop(),
-					navbar = $('.navbar'),
-					sd = $('.js-scroll-wrap');
+    // var scrollWindow = function() {
+	// 	$(window).scroll(function(){
+	// 		var $w = $(this),
+	// 				st = $w.scrollTop(),
+	// 				navbar = $('.navbar'),
+	// 				sd = $('.js-scroll-wrap');
 
-			if (st > 150) {
-				if ( !navbar.hasClass('scrolled') ) {
-					navbar.addClass('scrolled');	
-				}
-			} 
-			if (st < 150) {
-				if ( navbar.hasClass('scrolled') ) {
-					navbar.removeClass('scrolled sleep');
-				}
-			}
-			if ( st > 350 ) {
-				if ( !navbar.hasClass('awake') ) {
-					navbar.addClass('awake');	
-				}
+	// 		if (st > 150) {
+	// 			if ( !navbar.hasClass('scrolled') ) {
+	// 				navbar.addClass('scrolled');	
+	// 			}
+	// 		} 
+	// 		if (st < 150) {
+	// 			if ( navbar.hasClass('scrolled') ) {
+	// 				navbar.removeClass('scrolled sleep');
+	// 			}
+	// 		}
+	// 		if ( st > 350 ) {
+	// 			if ( !navbar.hasClass('awake') ) {
+	// 				navbar.addClass('awake');	
+	// 			}
 				
-				if(sd.length > 0) {
-					sd.addClass('sleep');
-				}
-			}
-			if ( st < 350 ) {
-				if ( navbar.hasClass('awake') ) {
-					navbar.removeClass('awake');
-					navbar.addClass('sleep');
-				}
-				if(sd.length > 0) {
-					sd.removeClass('sleep');
-				}
-			}
-		});
-	};
-	scrollWindow();
+	// 			if(sd.length > 0) {
+	// 				sd.addClass('sleep');
+	// 			}
+	// 		}
+	// 		if ( st < 350 ) {
+	// 			if ( navbar.hasClass('awake') ) {
+	// 				navbar.removeClass('awake');
+	// 				navbar.addClass('sleep');
+	// 			}
+	// 			if(sd.length > 0) {
+	// 				sd.removeClass('sleep');
+	// 			}
+	// 		}
+	// 	});
+	// };
+	// scrollWindow();
 
 // })
           </script>

@@ -1,10 +1,18 @@
+from json.encoder import JSONEncoder
+from django.core import paginator
 from django.shortcuts import render, redirect, reverse, get_object_or_404, resolve_url
 from django.contrib import messages
 from exam.models import Student, Paper, Teacher, Exam, Grade
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponseRedirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+import numpy as np
+import urllib
+import json
+import cv2
+import os
 import sweetify
 from exam.models import models
 from django.db import models
@@ -18,10 +26,83 @@ from django.contrib.auth.forms import AuthenticationForm #add this
 from django.contrib.auth.decorators import login_required
 
 
+@csrf_exempt
+def detect(request):
+    #initialize the data dictionary to be returned by the request
+    data = {"success": False}
+
+    #check if this is a post request
+    if request.method == "POST":
+        #check to see if an image was uploaded
+        if request.FILES.get("image", None) is not None:
+            #grab the uploaded image
+            image = _grab_image(stream=request.FILES["image"])
+
+            #otherwise, assume that a URL was passed in
+        else:
+            #grab the URL from the request
+            url = request.POST.get("url", None)
+
+            #if url is None, then return an error
+            if url is None:
+                data["error"] = "No URL provided"
+                return JsonResponse(data)
+
+            #load the image an convert
+            image = _grab_image(url=url)
+
+        #convert the image to grayscale, load the face cascade detector
+        #and detect faces in the image
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        detector = cv2.CascadeClassifier(FACE_DETECTOR_PATH)
+        rects = detector.detect.MultiScale(image, scaleFactor=1.1, minNeighbors=5, minSize=(30,30), flags=cv2.CASCADE_SCALE_IMAGE)
+
+        #construct a list of bounding boxes from the detection
+        rects = [(int(x), int(y), int(x + w), int(y + h)) for (x, y, w, h) in rects]
+
+        #update the data dictionary with the faces detected
+        data.update({"num_faces": len(rects), "faces": rects, "success": True})
+        
+        #update the data dictionary
+        # data["success"] = True
+
+    #return a JSON response
+    return JsonResponse(data)
+
+def _grab_image(path=None, stream=None, url=None):
+    #if the URL is not None, then load the image from disk
+    if path is not None:
+        image = cv2.imread(path)
+        #otherwise, the imagedoes not reside on disk
+    else:
+        #if the URL is not None, then download the image
+        if url is not None:
+            resp = urllib.urlopen(url)
+            data = resp.read()
+        #if the stream is not None, then the image has been uploaded
+        elif stream is not None:
+            data = stream.read()
+        #convert the image to a Numpy array and then read it into
+        #OpenCV format
+        image = np.asarray(bytearray(data), dtype="uint8")
+        image = cv2.imdecode(image, cv2.IMREAD_COLOR)
+    #return the image
+    return image
+
+
+
+
+
+
+
+
 @login_required
 def dashboard(request):
     return render(request, 'students/demo.html')
 
+
+def video(request):
+    return render(request, 'students/videocam.html')
 
 # @login_required
 # def dashboard(request):
@@ -216,11 +297,28 @@ def examstart(request):
                 level = request.POST.get('level')
                 semester = request.POST.get('semester')
                 print('level', level)
+
                 paper = Paper.objects.get(course=subject1, level=level, semester=semester)
+                # print("paper", paper)
+                # if paper is not None:
+                #     messages.success(request, f'You can now take your exam ')
+                #     print("Paper found")
+                # else:
+                #     # print("Paper not found")
+                #     messages.error(request, f'You can now take your ')
                 print("student::::::", student, paper.instruction)
-                
-                # if paper 
-                
+                print("student::::::", student, paper.exam_time)
+                question_list = Exam.objects.filter(course=subject1)
+                page = request.GET.get('page', 1)
+
+                paginator = Paginator(question_list, 3) 
+                try:
+                    questions = paginator.page(page)
+                except PageNotAnInteger:
+                    questions = paginator.page(1)
+                except EmptyPage:
+                    questions = paginator.page(paginator.num_pages)
+
                 context = {
 
                     # 'questions': Exam.objects.all(),
@@ -228,10 +326,11 @@ def examstart(request):
                     'course': form.cleaned_data.get('course'),
                     'level': form.cleaned_data.get('level'),
                     # 'student': request.session['reg_no'],
-                    #                     
+                                   
                     'paper': paper,               
                     'student': student,               
-                    'questions': Exam.objects.filter(course=subject1),
+                    'questions': questions,
+                    # 'pages': pages,
 
                 }
 
@@ -249,7 +348,7 @@ def examstart(request):
                 return render(request,'exam/home.html', context)
 
         else: 
-            return render (request, 'exam/about.html', {'message': 'Incorrect password', 'student': student})
+            return render (request, 'exam/about.html', {'message': 'Incorrect password'})
     else:
         return render (request, 'students/about.html', {'message': 'Incorrect password'})
 
