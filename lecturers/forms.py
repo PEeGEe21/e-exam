@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from exam.models import Teacher
 from exam.models import Exam
 from exam.models import Paper
+from exam.models import Course
 from exam.models import Student
 from django.http import HttpResponse
 from django.db import models
@@ -160,6 +161,7 @@ class ExamListForm(forms.Form):
             ]
 
 class StudentReportForm(forms.Form):
+        # course = forms.ModelChoiceField(queryset=Course.objects.all(),required=False, label='Course', initial=None, help_text="Choose the course you wish to view")
         course = forms.CharField(required=False, label='Course', initial=None, help_text="Choose the course you wish to view")
         class Meta:
             fields = [
@@ -176,6 +178,7 @@ class StudentListForm(forms.Form):
 
 
 class ExamSetupForm(forms.ModelForm):
+    tid = forms.ModelChoiceField(label='Teacher', queryset=Teacher.objects.all(), initial=None)
     exam_time = forms.DateTimeField(help_text="<b>2021-10-25 09:00:00</b> is the required Date/Time Format", 
     widget=forms.TextInput(
             attrs={
@@ -188,5 +191,13 @@ class ExamSetupForm(forms.ModelForm):
         # fields = '__all__'
         fields = ('tid', 'course', 'course_title', 'instruction', 'level', 'semester', 'major', 'exam_time', 'unit')
         template_name = 'lecturers/exam_setup.html'
+
+class CourseCreateForm(forms.ModelForm):
+    tid = forms.ModelChoiceField(label='Teacher', queryset=Teacher.objects.all(), initial=None)
+    course = forms.CharField(required=False)
+    class Meta:
+        model = Course
+        fields = '__all__'
+        template_name = 'lecturers/setting.html'
 
 

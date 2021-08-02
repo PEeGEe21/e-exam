@@ -53,8 +53,21 @@ LEVEL = (
 
 
 class StudentRegisterForm(StudentCreationForm):
-    id = forms.CharField(label='Matric No', max_length=20)
-    name = forms.CharField(label='Name', max_length=100)
+    id = forms.CharField(label='Matriculation Number', max_length=20, widget=forms.TextInput(
+            attrs={
+                # "placeholder" : "Matriculation Number",                
+                # "class": "form-control",
+                "autocomplete": "off"
+            }
+        ))
+    name = forms.CharField(label='Name', max_length=100,
+    widget=forms.TextInput(
+            attrs={
+                # "placeholder" : "Enter Your Name",                
+                # "class": "form-control",
+                "autocomplete": "off"
+            }
+        ))
     sex = forms.ChoiceField(choices=SEX)
     dept = forms.ChoiceField(label='Department', choices=DEPT)
     major = forms.ChoiceField(label='Major', choices=DEPT)

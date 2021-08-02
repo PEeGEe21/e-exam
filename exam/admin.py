@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Student, Teacher, Paper, Exam, Grade
+from .models import Student, Teacher, Paper, Exam, Grade, Course
 
 
 # admin.site.register(Exam)
@@ -46,6 +46,12 @@ class GradeAdmin(admin.ModelAdmin):
     list_display = ('id', 'sid', 'subject', 'grade', 'score')
     search_fields = ['sid', 'subject']
     List_filter = ['sid', 'subject']
+
+@admin.register(Course)
+class CourseAdmin(admin.ModelAdmin):
+    list_display = ('tid', 'course')
+    search_fields = ['tid', 'course']
+    List_filter = ['tid', 'course']
 
 
 # @admin.register(Course)

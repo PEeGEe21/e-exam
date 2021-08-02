@@ -11,7 +11,7 @@
         
             <title>CCU - Students | Sign In</title>
        
-        <link rel="shortcut icon" href="{% static 'exam/images/logo.jpg' %}">
+        <link rel="shortcut icon" href="{% static 'exam/images/logo.png' %}">
 
         <!-- <link href="{% static 'exam/plugins/font-awesome/css/font-awesome.css' %}" rel="stylesheet" type="text/css" /> -->
         <link href="{% static 'exam/plugins/fontawesome5/css/all.min.css' %}" rel="stylesheet" type="text/css" />
@@ -21,7 +21,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" integrity="sha512-6S2HWzVFxruDlZxI3sXOZZ4/eJ8AcxkQH1+JjSe/ONCEqR9L4Ysq5JdT5ipqtzU7WHalNwzwBv+iE51gNHJNqQ==" crossorigin="anonymous" />
         <link href="{% static 'exam/toastr.min.css' %}" rel="stylesheet" type="text/css" media="all"/>
 
-        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.css" integrity="sha512-oe8OpYjBaDWPt2VmSFR+qYOdnTjeV9QPLJUeqZyprDEQvQLJ9C5PCFclxwNuvb/GQgQngdCXzKSFltuHD3eCxA==" crossorigin="anonymous" /> --> -->
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.css" integrity="sha512-oe8OpYjBaDWPt2VmSFR+qYOdnTjeV9QPLJUeqZyprDEQvQLJ9C5PCFclxwNuvb/GQgQngdCXzKSFltuHD3eCxA==" crossorigin="anonymous" /> -->
 
         <link href="{% static 'exam/plugins/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
         <link href="{% static 'exam/style.css' %}" rel="stylesheet" type="text/css" />
@@ -69,18 +69,68 @@
 
                 }
 
-              body::before{
+              /* body::before{
                 content:"";
                 position: absolute;
                 height: 100%;
                 width: 100%;
                 background: #343a40;
                 opacity: .8;
-              }
+              } */
+
+              .bg-img {
+                background-position: center center;
+                background-size: cover;
+            }
+
+            .bg-overlay {
+                position: relative;
+                z-index: 1;
+            }
+
+            .bg-overlay:after {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(4, 8, 29, 0.7);
+                content: '';
+                z-index: -1;
+                top: 0;
+                left: 0;
+            }
+                          .animated-img {
+                -webkit-animation: animated-image 20s ease infinite;
+                animation: animated-image 20s ease infinite;
+            }
+
+            @-webkit-keyframes animated-image {
+                0% {
+                    background-position: 0% 50%;
+                }
+                50% {
+                    background-position: 100% 20%;
+                }
+                100% {
+                    background-position: 0% 50%;
+                }
+            }
+
+            @keyframes animated-image {
+                0% {
+                    background-position: 0% 50%;
+                }
+                50% {
+                    background-position: 100% 20%;
+                }
+                100% {
+                    background-position: 0% 50%;
+                }
+            }
+
         </style>
     </head>
-    <body class="bg-white">
-      <div class="overlay"></div>
+    <body class="animated-img bg-img bg-overlay">
+      <!-- <div class="overlay"></div> -->
             <!-- 
               <div class="text-left alert alert-{{ message.tags }}"> 
                   toastr.{{ message.tags }}("{{ message }}");
@@ -101,9 +151,9 @@
 
           <div>
             <div class="container">
-              <div class="" style="position: absolute; left: 20px;">
-                <img src="{% static 'exam/images/logo.jpg' %}" width="15%"/>
-              </div>
+              <!-- <div class="" style="position: absolute; left: 2  0px; margin-top: 10px;">
+                <a href="{% url 'index' %}"><img src="{% static 'exam/images/logo.png' %}" width="15%"/></a>
+              </div> -->
                 <!-- <div class="row">
                       <div class="col-12 mt-4 font-size-18 text-center ">
                         <h3>Welcome To CCU Online Examination</h3>
@@ -174,7 +224,7 @@
                                                 <form method="POST" action="/studentLogin/startexam/" class="p-2">
                                                   {% csrf_token %}
                                                     <div class="form-group mb-4">
-                                                      <input class="form-control" type="text" name="reg_no" placeholder="Matriculation Number" id="reg_no" required>
+                                                      <input class="form-control" type="text" name="reg_no" placeholder="Matriculation Number" id="reg_no" required autocomplete="off">
                                                     </div>
                                                     
                                                     <div class="form-group mb-4">
@@ -188,7 +238,7 @@
                                                 </form>
                                                 <div class="border-top mt-4 pt-3">
                                                     <!-- <small class="text-muted"> -->
-                                                        Create an account? <a class="ml-1" href="{% url 'students-register' %}">Sign Up</a>
+                                                        Don't have an account? <a class="ml-1 sign-up" href="{% url 'students-register' %}">Sign Up</a>
                                                     <!-- </small> -->
                                                 </div>
                                             </div>

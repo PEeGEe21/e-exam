@@ -13,7 +13,7 @@
         {% else %}
             <title>CCU - Lecturer | Sign In</title>
         {% endif %}
-        <link rel="shortcut icon" href="{% static 'exam/images/logo.jpg' %}">
+        <link rel="shortcut icon" href="{% static 'exam/images/logo.png' %}">
 
         <!-- <link href="{% static 'exam/plugins/font-awesome/css/font-awesome.css' %}" rel="stylesheet" type="text/css" /> -->
         <link href="{% static 'exam/plugins/fontawesome5/css/all.min.css' %}" rel="stylesheet" type="text/css" />
@@ -40,20 +40,42 @@
                   overflow: hidden;
                 }
                 body{
-                  background: url("{% static 'exam/images/hero_1.jpg' %}");
+                  background: url("{% static 'exam/images/lecturer-1.jpg' %}");
                   background-repeat: no-repeat;
                   background-size: cover;
                   background-position: center;
                 }
 
-                body::before{
+                /* body::before{
                   content:"";
                   position: absolute;
                   height: 100%;
                   width: 100%;
                   background: #343a40;
                   opacity: .8;
-                }
+                } */
+
+                
+              .bg-img {
+                background-position: center center;
+                background-size: cover;
+            }
+
+            .bg-overlay {
+                position: relative;
+                z-index: 1;
+            }
+
+            .bg-overlay:after {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(4, 8, 29, 0.7);
+                content: '';
+                z-index: -1;
+                top: 0;
+                left: 0;
+            }
 
                 .arrow-link{ 
                 letter-spacing: .1em;
@@ -72,15 +94,44 @@
               font-size: 12px;
               /* justify-items:; */
 	          }
+
+            .animated-img {
+    -webkit-animation: animated-image 20s ease infinite;
+    animation: animated-image 20s ease infinite;
+}
+
+@-webkit-keyframes animated-image {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 20%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes animated-image {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 20%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
         </style>
     </head>
-    <body class="">
+    <body class="animated-img bg-img bg-overlay">
 
 
         <div>
             <div class="container">
               <div class="" style="position: absolute; left: 20px; margin-top: 10px;">
-                <img src="{% static 'exam/images/logo.jpg' %}" width="15%"/>
+                <a href="{% url 'index' %}"><img src="{% static 'exam/images/logo.png' %}" width="15%"/></a>
               </div>
                 <div class="row">
                     <div class="col-12">
@@ -145,7 +196,7 @@
                                                   {% csrf_token %}
 
                                                     <div class="form-group mb-4">
-                                                        <input class="form-control" type="text" name="username" placeholder="Username">
+                                                        <input class="form-control" type="text" name="username" placeholder="Username" >
                                                       </div>
                                                     
                                                       <div class="form-group mb-4">

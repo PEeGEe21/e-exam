@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.http import HttpResponse
 from exam.models import models
 from .forms import ExamCreateForm
+from .forms import CourseCreateForm
 from .forms import ExamSetupForm
 from .forms import ExamListForm
 from .forms import StudentListForm
@@ -13,7 +14,7 @@ import sweetify
 from sweetify.views import SweetifySuccessMixin
 from django.db import models
 from django.views.generic import ListView, CreateView
-from exam.models import Student, Paper, Teacher, Exam, Grade
+from exam.models import Student, Paper, Teacher, Exam, Grade, Course
 from django.contrib.auth.decorators import login_required
 # Import ListView module
 from .forms import TeacherUpdateForm, ProfileUpdateForm
@@ -68,7 +69,30 @@ def examSetup(request):
     return render(request, 'lecturers/exam_setup.html')
 
 
+def monitorExam(request):
+    username = request.session['username']
+    print("username::::::", username)
+
+    teacher = Teacher.objects.get(username=username)
+    print("teacher::::::", teacher)
+
+    courses = Course.objects.filter(tid=teacher)
+    print("courses", courses)
+    # Check the form value is submitted or not
+    if request.GET.keys():
+        # Check the search keyword
+        if request.GET.get('src') != '':
+            keyword = request.GET.get('src')
+            # Set the query set based on search keyword
+            courses = Course.objects.filter(Q(brand=keyword.capitalize()) | Q(type=keyword.capitalize()))
+                
+    context = {
+        'teacher': teacher,
+        'courses': courses
+    }
+    return render(request, 'lecturers/monitor_exam.html', context)
       
+
 def questionList(request):
         username = request.session['username']
         print("username::::::", username)
@@ -115,6 +139,22 @@ def questionList(request):
 #     }
 #     return render(request, 'lecturers/student_list.html', context)
 
+# def report(request):
+#     if request.method == 'POST':
+#         # teaId = request.POST.get('id')
+#         subject = request.POST.get('subject') 
+        
+#         # sid=request.POST.get('sid')
+#         subject1 = request.POST.get('subject')
+
+#         id = request.POST.get('course.course') 
+#         # print("id", teaId, "username", username, "password", password)
+#         print("subject", subject1, "id", id)
+
+#         return redirect(reverse('lecturer_dashboard'), {'subject':subject})
+#     else: 
+#         return render (request, 'exam/about.html', {'message': 'Incorrect password'})
+
 
 def studentReport(request):
         username = request.session['username']
@@ -122,6 +162,18 @@ def studentReport(request):
 
         teacher = Teacher.objects.get(username=username)
         print("teacher::::::", teacher)
+
+        courses = Course.objects.filter(tid=teacher)
+        print("courses", courses)
+        # Check the form value is submitted or not
+        if request.GET.keys():
+            # Check the search keyword
+            if request.GET.get('src') != '':
+                keyword = request.GET.get('src')
+                # Set the query set based on search keyword
+                courses = Course.objects.filter(Q(brand=keyword.capitalize()) | Q(type=keyword.capitalize()))
+                
+
         if request.method=='POST':
             form = StudentReportForm(request.POST)
             
@@ -129,6 +181,7 @@ def studentReport(request):
             if form.is_valid():
 
                 subject = request.POST.get('course')
+                print("courseeee", subject)
                 lecturer = Paper.objects.get(course=subject)
                 # print(lecturer.tid)
                 grade = Grade.objects.filter(subject=subject)
@@ -143,6 +196,7 @@ def studentReport(request):
                     'teacher': teacher,
                     'lecturer': lecturer,
                     # 'questions': Exam.objects.all(),
+                    'courses': courses,
                     'course': form.cleaned_data.get('course'),
                     'grade': grade,
                     'queryset': queryset,
@@ -154,6 +208,7 @@ def studentReport(request):
             context = {
                 'form' : StudentReportForm(),
                 'teacher': teacher,
+                'courses': courses,
             }
             return render (request, 'lecturers/student_report.html', context)
 
@@ -248,9 +303,31 @@ def dashboard(request):
     username = request.session['username']
     print("username::::::", username)
     teacher = Teacher.objects.get(username=username)
-    print("teacher::::::", teacher)
+    paper = Paper.objects.filter(tid=teacher)
+    print("teacher::::::", teacher, "paper", paper)
+
+    num_course = Paper.objects.filter(tid=teacher).count()
+    total_course = Course.objects.filter(tid=teacher).count()
+    num_students = Student.objects.filter(dept=teacher.dept).count()
+    # num_questions = Exam.objects.get(course=paper, paper=teacher )
+    # questions_set = Exam.objects.filter(course=teacher.name.paper).count()
+    print("num_course", num_course, "total_course", total_course, "num_students", num_students)
+    queryset = Course.objects.filter(tid=teacher)
+    print("queryset", queryset)
+    # Check the form value is submitted or not
+    if request.GET.keys():
+        # Check the search keyword
+        if request.GET.get('src') != '':
+            keyword = request.GET.get('src')
+            # Set the query set based on search keyword
+            queryset = Course.objects.filter(Q(brand=keyword.capitalize()) | Q(type=keyword.capitalize()))
+
     context = {
         'teacher': teacher,
+        'queryset': queryset,
+        'num_course': num_course,
+        'total_course': total_course,
+        'num_students': num_students,
     }
     return render(request, 'lecturers/dashboard.html', context)
 
@@ -346,7 +423,8 @@ def teacherLogin(request):
         teacher = Teacher.objects.get(username=username)
         request.session['username'] = username
         # teachers = Teacher.objects.filter(id=teacher.id)
-        print(teacher)
+        print("teacher>>>>>", teacher)
+        
         # if (password == teacher.password1) and (username == teacher.username): 
             # paper = Paper.objects.filter(tid=teacher.id)
         sweetify.success(request, f'You successfully logged in')
@@ -433,6 +511,25 @@ class ExamCreateView(SweetifySuccessMixin, CreateView):
 
     def get_success_url(self):
         return reverse('exam-create')
+class CoursecreateView(SweetifySuccessMixin, CreateView):
+    model = Course
+    form_class = CourseCreateForm
+    template_name = 'lecturers/setting.html'
+    context_object_name = Teacher
+    success_message = 'Course successfully added!'
+
+    def get_context_data(self, *args, **kwargs):
+        username = self.request.session['username']
+        context = super().get_context_data(*args,**kwargs)
+        context['teacher'] = Teacher.objects.get(username=username)
+        return context
+
+    def form_valid(self, form):
+        form.instance.lecturer = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('lecturer-setting')
 
     
  

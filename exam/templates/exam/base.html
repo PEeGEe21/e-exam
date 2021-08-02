@@ -9,9 +9,10 @@
             CCU - {% block title %}{% endblock %}
         </title>
 
-        <link rel="shortcut icon" href="{% static 'exam/images/logo.jpg' %}">
+        <link rel="shortcut icon" href="{% static 'exam/images/png.jpg' %}">
         
         <link href="{% static 'exam/plugins/fontawesome5/css/all.min.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'exam/plugins/datetimepicker/jquery.datetimepicker.js' %}" rel="stylesheet" type="text/css" />
 
         <link href="{% static 'exam/icons.min.css' %}" rel="stylesheet" type="text/css" />
 
@@ -220,14 +221,100 @@
             margin-bottom: 10px;
 
             }
+
+            /* Preloader CSS */
+
+#preloader {
+    overflow: hidden;
+    background: #000000;
+    /* background: -webkit-linear-gradient(to right, #7450fe, #21d397);
+    background: -webkit-linear-gradient(left, #7450fe, #21d397);
+    background: linear-gradient(to right, #7450fe, #21d397); */
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999999;
+}
+
+.loader {
+    width: 46px;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    margin-top: -12px;
+    margin-left: -23px;
+    z-index: 9;
+}
+
+@-webkit-keyframes rotate {
+    0% {
+        -webkit-transform: translateY(0%);
+    }
+    30% {
+        -webkit-transform: translateY(-0.25em);
+    }
+    50% {
+        -webkit-transform: translateY(0%);
+    }
+    70% {
+        -webkit-transform: translateY(0.25em);
+    }
+}
+
+.loader .inner1,
+.loader .inner2,
+.loader .inner3 {
+    display: inline-block;
+    margin: 0.125em;
+    width: 0.5em;
+    height: 0.5em;
+    border: 1px solid #fff;
+    border-radius: 1em;
+    background-color: #fff;
+    -webkit-transform-origin: 50%;
+    -webkit-animation-duration: 0.75s;
+    -webkit-animation-name: rotate;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+}
+
+.loader .inner2 {
+    -webkit-animation-delay: 0.1875s;
+}
+
+.loader .inner3 {
+    -webkit-animation-delay: 0.375s;
+}
+
+
+
+
+
+
+
         </style>
     </head>
     <body>
 
+        <!-- Preloader Start -->
+    <div id="preloader">
+        <div class="loader">
+            <span class="inner1"></span>
+            <span class="inner2"></span>
+            <span class="inner3"></span>
+            <p class="text-white" style="font-size: 8px;">Please Wait</p>
+        </div>
+       
+    </div>
+
+
+
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
             <div class="container-fluid">
               <a class="navbar-brand" href="javascript:0;">
-                  <img src="{% static 'exam/images/logo.jpg' %}" width="40px"/>
+                  <img src="{% static 'exam/images/logo.png' %}" width="40px"/>
               </a>
 
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -268,7 +355,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-md-7 ">
+                    <div class="col-md-7 " style="height: 100vh; overflow-y: scroll;">
                         <div class="mt-4 px-2">
                             {% if messages %}
                             {% for message in messages %}
@@ -396,12 +483,21 @@
         <script src="{% static 'exam/js/jquery-3.5.1.min.js' %}"></script>
         <script src="{% static 'exam/js/popper.min.js' %}"></script>
         <script src="{% static 'exam/js/bootstrap.min.js' %}"></script>
+        <!-- <script src="{% static 'exam/js/plugins.js' %}"></script> -->
         <script src="{% static 'exam/js/metismenu.min.js' %}"></script>
         <script src="{% static 'exam/js/waves.js' %}"></script>
         <script src="{% static 'exam/js/simplebar.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
         <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
         
+        
+        <!-- counterup JS
+            ============================================ -->
+        <script src="{% static 'exam/plugins/counterup/jquery.counterup.min.js' %}"></script>
+        <script src="{% static 'exam/plugins/counterup/waypoints.min.js' %}"></script>
+        <script src="{% static 'exam/plugins/counterup/counterup-active.js' %}"></script>
+
+        <script src="{% static 'exam/plugins/datetimepicker/jquery.datetimepicker.js' %}"></script>
         
         <!-- Morris Js-->
         <script src="{% static 'exam/plugins/morris-js/morris.min.js' %}"></script>
@@ -423,6 +519,15 @@
                 //     $('#defaultCountdown').countdown(destroy ? 'destroy' : {until: newYear}); 
                 // });
             })
+
+            var $window = $(window);
+
+            // Preloader active code
+            $window.on('load', function () {
+                $('#preloader').fadeOut(10000, function () {
+                    $(this).remove();
+                });
+            });
 
             // window.jQuery(function($) {
             //             "use strict";
@@ -462,8 +567,10 @@
                 </script>
 
         <!-- App js -->
+        
         <script src="{% static 'exam/js/theme.js' %}"></script>
-        <script src="{% static 'exam/js/main.js' %}"></script>
+        <!-- <script src="{% static 'exam/js/active.js' %}"></script>
+        <script src="{% static 'exam/js/main.js' %}"></script> -->
         {% load sweetify%}
         {% sweetify%}
     </body>

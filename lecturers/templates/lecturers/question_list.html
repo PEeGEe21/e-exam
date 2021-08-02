@@ -61,7 +61,7 @@
                         <!-- end page title -->
                         <div class="row">
     
-                            <div class="col-xl-6">
+                            <div class="col-xl-8">
                                 <div class="card card-animate">
                                    <div class="card-body">
                                        <h4 class="card-title">See Questions </h4>
@@ -74,7 +74,7 @@
                                             {% csrf_token %}
                                             {{ form|crispy }}
                                             <div class="form-group">
-                                                <button class="btn btn-outline-info waves-effect" type="submit">View</button>
+                                                <button class="btn btn-outline-dark waves-effect text-center" type="submit"><i class="fa fa-eye"></i></button>
                                             </div>
                                         </form>
                                     
@@ -87,59 +87,129 @@
                 
                 
                            </div> <!-- end col -->
+                           </div> <!-- end ROW -->
 
-                           <div class="col-lg-6">
+                        <!-- <div class="row">
+                           <div class="col-lg-12">
                                <div class="row">
                                    <div class="col-12 text-center">
                                        <h5 class="mb-4">{{ course }}</h5>
                                    </div>
-                               </div>
+                               </div> -->
                                
-                            {% for question in questions %}
-                            <div class="card test-questions card-animate">
-                                <div class="card-header">
-                                    <h4>{{ question.question|safe }}</h4>
-                                    
+                            
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div id="accordion" class="custom-accordion mb-4">
+                                    <div class="card mb-0 shadow-lg">
+                                        <div class="card-header" id="headingOne">
+                                            <h5 class="m-0 font-size-15">
+                                                <a class="d-block pt-2 pb-2 text-dark" data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                    {{ course }} <span class="float-right"><i class="fa fa-chevron-up accordion-arrow"></i></span>
+                                                </a>
+                                            </h5>
+                                        </div>
+                                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                <table style="" class="table nowrap table-hover" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+
+                                                    <!-- <table id="state-saving-datatable" class="table nowrap"> -->
+                                                        <thead style="">
+                                                            <tr>
+                                                                <th> Question </th>
+                                                                <th> Option 1</th>
+                                                                <th> Option 2 </th>
+                                                                <th> Option 3 </th>
+                                                                <th> Option 4 </th>
+                                                                <th> Answer </th>
+                                                            </tr>
+                                                        </thead>
+                                                    
+                                                        <tbody>
+                                                            {% if questions %}
+                                                            {% for question in questions %}
+            
+                                                                <tr class="" >
+                                                                    <!-- grade, id, sid, sid_id, subject -->
+                                                                    <td>{{ question.question|safe }}</td>
+                                                                    <td>{{ question.option1 }}</td>
+                                                                    <td>{{ question.option2 }}</td> 
+                                                                    <td>{{ question.option3 }}</td>
+                                                                    <td>{{ question.option4}}</td>
+                                                                    <td>{{ question.answer }}</td>
+                                                                     
+                                                                 </tr>
+                                                               {% endfor %}
+                                                               {% else %}
+                                                               <tr class="" >
+                                                                <!-- grade, id, sid, sid_id, subject -->
+                                                                <td colspan="6"><p class="text-center">No questions</p></td>
+                                                                 
+                                                             </tr>
+                                                               
+                                                               {% endif %}
+                                                        </tbody>
+                                                        
+            
+                                                    </table>
+                                                </div>
+                                                <!-- {% if questions %}
+                                                {% for question in questions %}
+                                                <table>
+                                                    <thead style="">
+                                                        <tr>
+                                                            <th> Question </th>
+                                                            <th> Option 1</th>
+                                                            <th> Option 2 </th>
+                                                            <th> Option 3 </th>
+                                                            <th> Option 4 </th>
+                                                            <th> Answer </th>
+                                                        </tr>
+                                                    </thead>
+
+                                                <tbody>
+
+
+                                                    <tr class="" >
+                                                        <!-- grade, id, sid, sid_id, subject 
+                                                        <td>{{ question.question|safe }}</td>
+                                                        <td>{{ question.option1 }}</td>
+                                                        <td>{{ question.option2 }}</td> 
+                                                        <td>{{ question.option3 }}</td>
+                                                        <td>{{ question.option4}}</td>
+                                                        <td>{{ question.answer }}</td>
+                                                         
+                                                     </tr>
+                                              
+                                                </tbody>
+                                                    {% endfor %}
+                                                    {% else %}
+                                                    <p class="text-center">No questions</p>
+                                                    {% endif %}
+                                            </table> -->
+                                                <!-- <h6>{{ question.question|safe }}</h6>
+
+                                                <ul class="question-list">
+                                                    <li>A. {{ question.option1 }}</li>
+                                                    <li>B. {{ question.option2 }}</li>
+                                                    <li>C. {{ question.option3 }}</li>
+                                                    <li>D. {{ question.option4 }}</li>
+                                                    <li>
+                                                        Answer: {{ question.answer }}
+                                                    </li>
+                                                </ul> -->
+                                                
+                                            </div>
+                                        </div>
+                                    </div> <!-- end card-->
                                 </div>
-                                <div class="card-body test_content_nr_main">
-                                    
-                                    <ul class="question-list">
-                                        <li>A. {{ question.option1 }}</li>
-                                        <li>B. {{ question.option2 }}</li>
-                                        <li>C. {{ question.option3 }}</li>
-                                        <li>D. {{ question.option4 }}</li>
-                                        <li>
-                                            Answer: {{ question.answer }}
-                                        </li>
-                                    </ul>
-                                    <!-- <ul>
-                                        <li class="option">
-                                            A. <input type="radio" name="{{ question.id }}" value="{{ question.option1 }}" class="mr-2"/>
-                                            <label>{{ question.option1 }}</label>
-                                        </li>
-                                        <li class="option">
-                                            B. <input type="radio" name="{{ question.id }}" value="{{ question.option2 }}" class="mr-2"/>
-                                            <label>{{ question.option2 }}</label>
-                                        </li>
-                                        <li class="option">
-                                            C. <input type="radio" name="{{ question.id }}" value="{{ question.option3 }}" class="mr-2"/>
-                                            <label>{{ question.option3 }}</label>
-                                        </li>
-                                        <li class="option">
-                                            D. <input type="radio" name="{{ question.id }}" value="{{ question.option4 }}" class="mr-2"/>
-                                            <label>{{ question.option4 }}</label>
-                                        </li>
-                    
-                                          <li>
-                                            Correct answer: {{ question.answer }}
-                                          </li>
-                                          
-                                    </ul> -->
                                 </div>
                             </div>
-                        {% endfor %}
+                            
+<!--                         
                            </div>
-                        </div>
+                        </div> -->
                         
     
                     </div> <!-- container-fluid -->

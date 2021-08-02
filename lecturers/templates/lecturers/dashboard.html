@@ -47,7 +47,7 @@
                                         </span>
                                     </div>
                                     <h6 class="text-muted text-uppercase mt-0">Number of Students</h6>
-                                    <h3 class="my-3">30</h3>
+                                    <h3 class="my-3"><span class="counter">{{num_students}}</span></h3>
                                     <span class="badge badge-soft-primary mr-1"> +11% </span> <span class="text-muted">From previous period</span>
                                 </div>
                             </div>
@@ -61,7 +61,7 @@
                                         </span>
                                     </div>
                                     <h6 class="text-muted text-uppercase mt-0">Papers Set</h6>
-                                    <h3 class="my-3">10</h3>
+                                    <h3 class="my-3"><span class="counter">{{num_course}}</span> <small class="text-muted f">out of</small> {{total_course}}</h3>
                                     <span class="badge badge-soft-primary mr-1"> -29% </span> <span class="text-muted">This Month</span>
                                 </div>
                             </div>
@@ -75,7 +75,7 @@
                                         </span>
                                     </div>
                                     <h6 class="text-muted text-uppercase mt-0">Questions set</h6>
-                                    <h3 class="my-3"><span data-plugin="counterup">200</span></h3>
+                                    <h3 class="my-3"><span class="counter">200</span></h3>
                                     <span class="badge badge-soft-primary mr-1"> 0% </span> <span class="text-muted">This Month</span>
                                 </div>
                             </div>
@@ -345,7 +345,73 @@
                             </div><!-- end col-->
                         </div>
                         <!-- end row-->
+                        <div class="dropdown" style="position:fixed; right:0px; bottom:50%" >
+                            <a class="" href="javascript:void(0)" id="page-header-user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                                <div class="avatar-sm " data-toggle="tooltip" data-placement="bottom" title="Courses">
+                                    <span class="avatar-title bg-soft-primary rounded-circle">
+                                        <h3 class="my-3">{{total_course}}</h3>
+                                    </span>
+                                </div>
+                            </a>
+                            <!-- <div class="avatar-sm " style="position:fixed; right:10px; bottom:50%">
+                                <a class=""  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="avatar-title bg-soft-primary rounded-circle">
+                                        <h3 class="my-3">30</h3>
+                                    </span>
+                                </a>
+                            </div> -->
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <div class="p-3">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+                                            <h6 class="m-0">Your Courses</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                    <div data-simplebar style="max-height: 230px;">
+                                        {% if queryset %}
+                                            {% for course in queryset %}
+                                                <!-- {% if course in queryset %} -->
+        
+                                                    <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
+                                                        <span>{{ course.course }}</span>
+                                                    </a>
 
+                                                <!-- {% else %}
+
+                                                    No content available
+                                                {% endif %} -->
+                                            {% endfor %}
+                                        {% else %}
+                                            <p class="p-2">No Courses Yet</p>
+                                        {% endif %}
+
+                                    </div>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+
+                    
+                        <!-- <div class="row">
+                            <div class="col-12 col-sm-12 col-md-4 col-xl-4">
+                                <div class="card card-animate border-light shadow-sm">
+                                    <div class="card-body">
+                                        <div class="avatar-sm float-right">
+                                            <span class="avatar-title bg-soft-primary rounded-circle">
+                                                <h3 class="my-3">30</h3>
+                                            </span>
+                                        </div>
+                                        <h6 class="text-muted text-uppercase mt-0">Courses you handle</h6>
+                                        
+                                        
+ 
+                                    
+                                </div>
+                            </div>
+                        </div> -->
+                        
                 </div> <!-- container-fluid -->
             </div>
             <!-- End Page-content -->

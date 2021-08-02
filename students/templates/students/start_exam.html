@@ -116,9 +116,42 @@
                   background: #000000;
                   opacity: .8;
                 }
+
+
+                
+.animated-img {
+    -webkit-animation: animated-image 20s ease infinite;
+    animation: animated-image 20s ease infinite;
+}
+
+@-webkit-keyframes animated-image {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 20%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes animated-image {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 20%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
         </style>
+
+
     </head>
-    <body class="bg-primary">
+    <body class="bg-primary animated-img">
 
 
       <div class="pt-4">

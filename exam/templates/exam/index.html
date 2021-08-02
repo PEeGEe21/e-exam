@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>CCU - Index</title>
         
-        <link rel="shortcut icon" href="{% static 'exam/images/logo.jpg' %}">
+        <link rel="shortcut icon" href="{% static 'exam/images/logo.png' %}">
 
         <link href="{% static 'exam/plugins/fontawesome5/css/all.min.css' %}" rel="stylesheet" type="text/css" />
 
@@ -23,6 +23,7 @@
             .navbar{
                 z-index: 99999;
                 background: rgb(24, 23, 23) !important;
+                padding: 20px 60px;
                 
             }
 
@@ -142,7 +143,7 @@
               -o-transition: .3s all ease;
               transition: .3s all ease;
               position: relative;
-              left: 0;
+              left: 0; 
               font-size: 12px;
               opacity: 0;
               /* justify-items:; */
@@ -214,17 +215,109 @@
                 /* font-size: 24px; */
                 }
 
+                #header-sticky-wrapper {
+    position: absolute;
+    width: 100%;
+}
 
+.header_area {
+    background-color: rgb(24, 23, 23) !important;
+    position: fixed;
+    width: 100%;
+    z-index: 90;
+    height: 100px;
+    top: 0;
+    left: 0;
+    padding: 20px 50px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    -webkit-transition-duration: 500ms;
+    transition-duration: 500ms;
+}
+
+.is-sticky .header_area {
+    background-color: rgb(24, 23, 23) !important;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    border-bottom: 1px solid transparent;
+}
+
+.animated-img {
+    -webkit-animation: animated-image 20s ease infinite;
+    animation: animated-image 20s ease infinite;
+}
+
+@-webkit-keyframes animated-image {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 20%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes animated-image {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 20%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.typewriter-effect > .text{
+    display: flex;
+    font-family: monospace;
+    /* justify-content: center; */
+}
+.typewriter-effect > .text{
+    max-width: 0;
+    animation: typing 5s steps(var(--characters)) infinite;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.typewriter-effect > .text:after{
+    content: " |";
+    animation: blink 1s infinite;
+    animation-timing-function: step-end;
+}
+
+@keyframes typing{
+    75%,
+    100%{
+        max-width: calc(var(--characters) * 1ch);
+    }
+   
+}
+@keyframes blink{
+    0%,
+    75%,
+    100%{
+        opacity: 1;
+    }
+    25%{
+        opacity: 0;
+    }
+}
 
         </style>
         
     </head>
-    <body data-spy="scroll" data-target=".site-navbar-target" data-offset="150">
-
-        <nav class="navbar navbar-expand-lg navbar-dark site-navbar-target sticky-top">
+    <body class="animated-img" data-spy="scroll" data-target=".site-navbar-target" data-offset="150">
+        <!-- <header class="header_area navbar-dark" id="header"> -->
+        <nav class="navbar navbar-expand-lg navbar-dark site-navbar-target">
             <div class="container-fluid">
               <a class="navbar-brand" href="javascript:0;">
-                  <img src="{% static 'exam/images/logo.jpg' %}" width="40px"/> <span class="ml-2 h6"> COAL CITY UNIVERSITY</span>
+                  <img src="{% static 'exam/images/logo.png' %}" width="40px"/> <span class="ml-2 h6"> COAL CITY UNIVERSITY</span>
               </a>
 
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -260,6 +353,7 @@
               </div>
             </div>
         </nav>
+        <!-- </header> -->
 
         <div class="hero">
             <div class="overlay"></div>
@@ -267,7 +361,11 @@
                 <div class="row h-100 align-items-center text-white">
                     <div class="col-12 col-md-7 col-lg-7">
                         <h2 class="mb-3 my-2">Our Online Examination System</h2>
-                        <p>Cras iaculis eleifend arcu, non cursus sem. Morbi viverra varius nisl, ac varius mauris interdum sit amet. Aenean ac fermentum neque. Nullam tincidunt et nisi quis porttitor.</p>
+                        
+                        <!-- <div class="text" id="typewriter-text"> -->
+                            <p>Cras iaculis eleifend arcu, non cursus sem. Morbi viverra varius nisl, ac varius mauris interdum sit amet. Aenean ac fermentum neque. Nullam tincidunt et nisi quis porttitor.
+</p>
+                        <!-- </div> -->
                         
                         <div class="d-flex d-block mt-4">
                             <a href="{% url 'lecturer-login' %}" class="btn btn-success h5 text-white arrow-link">
@@ -299,10 +397,10 @@
         <footer class="footer py-1">
             <div class="copyrights">       
               <div class="container text-center py-2">
-                <p class="mb-0 text-white">© <script>document.write(new Date().getFullYear());</script>,&nbsp; Online Examination System. Designed by <a href="#" class="text-white">Pee-Gee</a></p>
+                <p class="mb-0 text-white">© <script>document.write(new Date().getFullYear());</script>,&nbsp;Online Examination System. Designed by <a href="#" class="text-white">Pee-Gee</a></p>
               </div>
             </div>
-          </footer>
+        </footer>
 
 
 
@@ -374,6 +472,13 @@
 
 // })
           </script>
+          <script>
+            const typeWriter = document.getElementById('typewriter-text');
+            const text = 'Cras iaculis eleifend arcu, non cursus sem. Morbi viverra varius nisl, ac varius mauris interdum sit amet. Aenean ac fermentum neque. Nullam tincidunt et nisi quis porttitor.'
+            typeWriter.innerHTML = text;
+            typeWriter.style.setProperty('--characters', text.length)
+        </script>
+        <!-- <script src="{% static 'exam/js/active.js' %}"></script> -->
 
         <script src="{% static 'exam/js/theme.js' %}"></script>
     </body>

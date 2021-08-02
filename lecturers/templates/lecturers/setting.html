@@ -1,7 +1,7 @@
 {% extends "lecturers/base.html" %}
-{% block title %} Settings | Dashboard {% endblock %} 
+{% block title %} Settings {% endblock %} 
 
-
+{% load crispy_forms_tags %}
 {% block content %}
 <div class="main-content">
 
@@ -21,7 +21,7 @@
             </div>
         </div>
         <div>
-            <button type="button" class="btn btn-dark mx-2"><span class="fas fa-calendar-alt"></span></button>
+            <button type="button" class="btn btn-dark mx-2" data-toggle="modal" data-target="#coursemodal"><span class="fas fa-calendar-alt"></span> Add Course</button>
             <div class="dropdown float-right position-relative">
                 <button class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="fas fa-clipboard mx-2"></span>Reports
@@ -37,7 +37,7 @@
                     <a class="dropdown-item fw-normal rounded-bottom" href="#"><span class="fas fa-rocket text-success"></span>All Reports</a>
                 </div> -->
                 <ul class="dropdown-menu dropdown-menu-right">
-                    <li><a class="dropdown-item fw-normal rounded-top" href="#"><span class="fas fa-box-open mx-1"></span>Products</a></li>
+                    <li><a class="dropdown-item fw-normal rounded-top" href="{% url 'question_list' %}"><span class="fas fa-box-open mx-1"></span>Courses</a></li>
                     <li><a class="dropdown-item fw-normal" href="#"><span class="fas fa-store mx-1"></span>Customers</a></li>
                     <li><a class="dropdown-item fw-normal" href="#"><span class="fas fa-cart-arrow-down mx-1"></span>Orders</a></li>
                     <li><a class="dropdown-item fw-normal" href="#"><span class="fas fa-chart-pie mx-1"></span>Console</a></li>
@@ -137,6 +137,47 @@
                   </div>
               </form>
           </div>
+          <div class="card card-body shadow-sm mb-4 mb-lg-4">
+              <h2 class="h5 mb-4">Examination</h2>
+              <ul class="list-group list-group-flush">
+                  <li class="list-group-item d-flex align-items-center justify-content-between px-0 border-bottom">
+                      <div>
+                          <h3 class="h6 mb-1">Monitor Exam</h3>
+                          <p class="small pe-4">Monitor candidates currently taking examinations</p>
+                      </div>
+                      <div>
+                          <div class="form-check form-switch">
+                              <input class="form-check-input" type="checkbox" id="chkMonitor" autocomplete="off">
+                              <label class="form-check-label" for="chkMonitor"></label>
+                          </div>
+                      </div>
+                  </li>
+                  <li class="list-group-item d-flex align-items-center justify-content-between px-0 border-bottom">
+                      <div>
+                          <h3 class="h6 mb-1">Account Activity</h3>
+                          <p class="small pe-4">Get important notifications about you or activity you've missed</p>
+                      </div>
+                      <div>
+                          <div class="form-check form-switch">
+                              <input class="form-check-input" type="checkbox" id="user-notification-2" checked>
+                              <label class="form-check-label" for="user-notification-2"></label>
+                          </div>                                            
+                      </div>
+                  </li>
+                  <li class="list-group-item d-flex align-items-center justify-content-between px-0">
+                      <div>
+                          <h3 class="h6 mb-1">Meetups Near You</h3>
+                          <p class="small pe-4">Get an email when a Dribbble Meetup is posted close to my location</p>
+                      </div>
+                      <div>
+                          <div class="form-check form-switch">
+                              <input class="form-check-input" type="checkbox" id="user-notification-3" checked>
+                              <label class="form-check-label" for="user-notification-3"></label>
+                          </div> 
+                      </div>
+                  </li>
+              </ul>
+          </div>
           <div class="card card-body shadow-sm mb-4 mb-lg-0">
               <h2 class="h5 mb-4">Alerts & Notifications</h2>
               <ul class="list-group list-group-flush">
@@ -208,7 +249,43 @@
                                   <img class="rounded" src="/static/assets/img/team/profile-picture-3.jpg" alt="change avatar">
                               </div>
                           </div>
-                          <div class="file-field">
+                          <button type="button" class="btn btn-primary" >
+                              modal
+                          </button>
+
+                          <div class="modal fade" id="coursemodal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+                              <div class="modal-dialog modal-dialog-centered" role="document">
+                                  <div class="modal-content">
+                                      <div class="modal-header">
+                                          <h5 class="modal-title" id="modalLongTitle">
+                                              Add Courses
+                                          </h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                          </button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <form method="POST" action="">
+                                            {% csrf_token %}
+                                            {{ form|crispy }}
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <div class="form-group d-flex justify-content-between">
+                                                    <button class="btn btn-primary waves-effect" type="submit">Create</button>
+                                                </div>
+                                            </div>
+                                            
+                                        </form>
+                                      </div>
+                                      
+
+                                  </div>
+
+                              </div>
+
+                          </div>
+                          <!-- <div class="file-field">
                               <div class="d-flex justify-content-xl-center ms-xl-3">
                                   <div class="d-flex">
                                     <span class="icon icon-md"><span class="fas fa-paperclip me-3"></span></span> <input type="file">
@@ -218,7 +295,7 @@
                                     </div>
                                   </div>
                               </div>
-                            </div>                                        
+                            </div>                                         -->
                       </div>
                   </div>
               </div>

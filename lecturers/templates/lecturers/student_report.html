@@ -27,7 +27,7 @@
                             </div>
                         </div>
                         <!-- end page title -->
-                        <section class="appointment">
+                        <!-- <section class="appointment">
                             <div class="row">
                                 <div class="col-md-12 col-lg-7 mx-auto">
                                     <div class="card card-animate border-0 shadow-sm">
@@ -45,29 +45,85 @@
                                     </div>
                                 </div>
                             </div>
-                        </section>
+                        </section> -->
 
                         <div class="row">
+                            <div class="col-12 col-sm-12 col-md-4 col-xl-8">
+                                <div class="card card-animate border-light shadow-sm">
+                                    <div class="card-body">
+                                        <form method="POST" >
+                                            {% csrf_token %}
+                                            <fieldset class="form-group">
+                                                {{ form|crispy }}
+                                            </fieldset>
+                                            <!-- <div class="form-group">
+                                                <label for="gender">Gender</label>
+                                                <select class="form-control mb-0" id="gender" aria-label="Gender select example">
+                                                    {% for course in courses %}
+                                                        <option value="{{ course }}" name="{{ course }}">
+                                                                {{ course }}
+                                                        </option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div> -->
+                                            <div class="form-group">
+                                                <button class="btn btn-outline-info" type="submit">Get Result</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-xl-4">
+                                <div class="card card-animate border-light shadow-sm">
+                                    <div class="card-body">
+                                        <!-- <div class="avatar-sm float-right">
+                                            <span class="avatar-title bg-soft-primary rounded-circle">
+                                                <h3 class="my-3">30</h3>
+                                            </span>
+                                        </div> -->
+                                        
+                                        
+                                        {% if courses %}
+                                        {% for course in courses %}
+                                        <h6 class="text-muted text-uppercase mt-0">Courses you handle</h6>
+                                            <ul class="question-list">
+                                                <li class="d-flex align-items-center justify-content-between">
+                                                    {{ course }} <a href="" class="btn btn-primary btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> view</a>
+                                                </li>
+                                            </ul>
+                                        {% endfor %}
+                                        {% else %}
+
+                                        <p>Add your courses</p>
+
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-12">
-                                 <div class="card card-animate">
+                                 <div class="card card-animate" id="exampl">
                                     <div class="card-body">
                                         <div class="d-flex align-items-center justify-content-between">
                                             
-                                        <h4 class="card-title">All Students</h4>
-                                        <h5 class="mb-4">{{ course }}</h5>
-                                        <h5 class="mb-4">{{ lecturer.tid }}</h5>
+                                            <h4 class="card-title">All Students</h4>
+                                            <h5 class="mb-4">Course: {{ course }}</h5>
+                                            <h5 class="mb-4">Lecturer: {{ lecturer.tid }}</h5>
                                         </div>
 
-                                        <p class="card-subtitle mb-4">
+                                        <!-- <p class="card-subtitle mb-4">
                                             DataTables has the option of being able to save the state of a table (its paging position, ordering state etc) so
                                             that is can be restored when the user reloads a page, or comes back to the page after visiting a sub-page. This
                                             state saving ability is enabled by the stateSave option.
-                                        </p>
+                                        </p> -->
+                                        <table id="state-saving-datatable" style="" border="1" class="table nowrap table-bordered" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
 
-                                        <table id="state-saving-datatable" class="table dt-responsive nowrap">
-                                            <thead>
-                                                <tr>
-                                                    <th> Student </th>
+                                        <!-- <table id="state-saving-datatable" class="table nowrap"> -->
+                                            <thead style="">
+                                                <tr align="center">
+                                                    <th> Photo </th>
+                                                    <th> Matric No.</th>
                                                     <th> Name </th>
                                                     <th> Score </th>
                                                     <th> Grade </th>
@@ -78,21 +134,25 @@
 
                                                     {% for grade in queryset %}
 
-                                                    <tr class="">
+                                                    <tr class="" >
                                                         <!-- grade, id, sid, sid_id, subject -->
-                                                         <td>{{ grade.sid }}</td>
-                                                         <td>{{ grade.sid.name }}</td>
-                                                         <td><strong>{{ grade.grade }}</strong></td>
-                                                         <td><strong>{{ grade.score }}</strong></td>
+                                                        <td class="text-center">
+                                                             <img width="30px" class="rounded-circle header-profile-user" src="{{ grade.sid.profile.image.url}}"  />
+                                                        </td>
+                                                        <td>{{ grade.sid }}</td>
+                                                        <td>{{ grade.sid.name }}</td> 
+                                                        <td>{{ grade.grade }}</td>
+                                                        <td>{{ grade.score}}</td>
                                                          
                                                      </tr>
                                                    {% endfor %}
                                               
                                             </tbody>
                                             
-                                            
+
                                         </table>
-    
+                                        <p class="text-center print-btn" data-toggle="tooltip" title="print"> <i class="fa fa-print fa-2x" style="cursor: pointer;"  OnClick="CallPrint(this.value)" ></i></p>                          
+
                                     </div> <!-- end card body-->
                                 </div> <!-- end card -->
                             </div><!-- end col-->
