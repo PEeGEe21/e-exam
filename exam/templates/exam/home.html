@@ -64,7 +64,7 @@
                         {{ paper.instruction|safe }}
                 </div>
             </div>
-            {% for question in questions %}
+            {% for question in question_list %}
                 <div class="card test-questions card-animate">
                     <div class="card-header">
                         <h4>{{ question.question|safe }}</h4>
@@ -88,10 +88,11 @@
                                 D. <input type="radio" name="{{ question.id }}" value="{{ question.option4 }}" class="mr-2"/>
                                 <label>{{ question.option4 }}</label>
                             </li>
-        
-                            <li class="">
-                                Correct answer: {{ question.answer }}
+                            <li class="option">
+                                {{ question.answer }}
                             </li>
+        
+                            
                             
                         </ul>
                     </div>

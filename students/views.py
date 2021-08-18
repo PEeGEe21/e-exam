@@ -309,15 +309,15 @@ def examstart(request):
                 print("student::::::", student, paper.instruction)
                 print("student::::::", student, paper.exam_time)
                 question_list = Exam.objects.filter(course=subject1)
-                page = request.GET.get('page', 1)
+                # page = request.GET.get('page', 1)
 
-                paginator = Paginator(question_list, 3) 
-                try:
-                    questions = paginator.page(page)
-                except PageNotAnInteger:
-                    questions = paginator.page(1)
-                except EmptyPage:
-                    questions = paginator.page(paginator.num_pages)
+                # paginator = Paginator(question_list, 3) 
+                # try:
+                #     questions = paginator.page(page)
+                # except PageNotAnInteger:
+                #     questions = paginator.page(1)
+                # except EmptyPage:
+                #     questions = paginator.page(paginator.num_pages)
 
                 context = {
 
@@ -329,7 +329,8 @@ def examstart(request):
                                    
                     'paper': paper,               
                     'student': student,               
-                    'questions': questions,
+                    # 'questions': questions,
+                    'question_list': question_list,
                     # 'pages': pages,
 
                 }
@@ -406,27 +407,25 @@ def calGrade(request):
         print("paper = ", paper)
         print("grade = ", grade)
         # Calculate student scores for the exam
-        question = Paper.objects.filter(course=subject1).values("pid").values('pid__id', 'pid__answer','pid__score')
+        question = Exam.objects.filter(course=subject1).values('id').values('id', 'score', 'answer')
         print("question = ", question)
         print("subject1", subject1 )
         mygrade=0 #Initialize a score of 0
        
         for p in question:
-            qId=str(p['pid__id']) #int to string, find the question number through pid
-            print('qId', qId)
+            qId=str(p['id']) #int to string, find the question number through pid
+            # selected_ans = request.COOKIES.get(str(i+1))
+            # actual_answer = questions[i].answer
+            # print('qId', qId)
             myanswer=request.POST.get(qId) #Get students' answers on this question through qid
             # print(myans)
             print("myanswer::::", myanswer)
-            answer=p['pid__answer'] # Get the correct answer
-
-            # print(okans)
+            answer=p['answer'] # Get the correct answer
             print("answer::::", answer)
             if myanswer==answer: #Judge whether the student's answer is consistent with the correct answer
+                mygrade+=p['score']#If they are consistent, get the score of the question and accumulate the mygrade variable
+                
 
-                # mygrade+=5#If they are consistent, get the score of the question and accumulate the mygrade variable
-                mygrade+=p['pid__score']#If they are consistent, get the score of the question and accumulate the mygrade variable
-
-        
         if mygrade < 40 :
             score = 'F'
             print(score)

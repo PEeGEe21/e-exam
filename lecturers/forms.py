@@ -20,6 +20,8 @@ COURSE = (
         ("COS441", "COS441"),
         ("COS431", "COS431"),
         ("COS461", "COS461"),
+        ("COS101", "COS101"),
+        ("COS102", "COS102"),
     )
 
 DEPT = (
