@@ -6,7 +6,8 @@ from django.db import models
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .models import Profile
-from django.contrib.auth.forms import StudentCreationForm, AuthenticationForm
+# from django.contrib.auth.forms import StudentCreationForm, AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.utils.translation import gettext_lazy as _
 
 
@@ -55,7 +56,7 @@ LEVEL = (
     )
 
 
-class StudentRegisterForm(StudentCreationForm):
+class StudentRegisterForm(forms.ModelForm):
     id = forms.CharField(label='Matriculation Number', max_length=20, widget=forms.TextInput(
             attrs={
                 # "placeholder" : "Matriculation Number",                

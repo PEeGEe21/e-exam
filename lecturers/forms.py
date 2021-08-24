@@ -9,7 +9,7 @@ from django.http import HttpResponse
 from django.db import models
 from .models import Profile
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.forms import TeacherCreationForm
+# from django.contrib.auth.forms import TeacherCreationForm
 from ckeditor.fields import RichTextField
 from ckeditor.widgets import CKEditorWidget
 
@@ -44,7 +44,7 @@ SEX = (
     )
 
 
-class TeacherRegisterForm(TeacherCreationForm):
+class TeacherRegisterForm(forms.ModelForm):
     # id = forms.CharField(label='Teacher ID', max_length=20)
     name = forms.CharField(label='Name', max_length=100)
     username = forms.CharField(label='Username', max_length=50)
